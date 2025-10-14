@@ -36,6 +36,7 @@ spec:
         kind: HelmRepository
         name: ww-gitops
   interval: 1h0m0s
+  serviceAccountName: kustomize-controller
   values:
     adminUser:
       create: true

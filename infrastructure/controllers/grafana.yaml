@@ -20,7 +20,6 @@ metadata:
   namespace: monitoring
 spec:
   interval: 5m
-  serviceAccountName: kustomize-controller
   chart:
     spec:
       chart: grafana

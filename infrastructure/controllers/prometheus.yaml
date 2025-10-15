@@ -22,7 +22,6 @@ spec:
         kind: HelmRepository
         name: prometheus-repo
       interval: 5m
-  serviceAccountName: kustomize-controller
   values:
     prometheus:
       prometheusSpec:

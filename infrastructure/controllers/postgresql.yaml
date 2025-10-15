@@ -20,24 +20,13 @@ spec:
   chart:
     spec:
       chart: postgresql
-      version: "16.3.0"
+      version: ">16.3.0"
       sourceRef:
         kind: HelmRepository
         name: postgresql
         namespace: default
       interval: 1m
   values:
-    global:
-      security:
-        allowInsecureImages: true
-    image:
-      repository: bitnamilegacy/postgresql
-    volumePermissions:
-      image:
-        repository: bitnamilegacy/os-shell
-    metrics:
-      image:
-        repository: bitnamilegacy/postgresql-exporter
     auth:
       username: "myuser"
       password: "mypassword"

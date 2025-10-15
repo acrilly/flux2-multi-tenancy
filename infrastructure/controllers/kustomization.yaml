@@ -3,4 +3,5 @@ kind: Kustomization
 resources:
   - weave-gitops-dashboard.yaml
   - sealedsecrets.yaml
-  - postgresql.yaml
+  - prometheus.yaml
+  - grafana.yaml

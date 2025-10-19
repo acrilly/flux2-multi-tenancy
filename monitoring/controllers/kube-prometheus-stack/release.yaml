@@ -26,7 +26,25 @@ spec:
   values:
     alertmanager:
       enabled: false
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+        hosts:
+          - alertmgr.staging
+        paths:
+          - /
+        pathType: ImplementationSpecific
     prometheus:
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
+        hosts:
+          - prometheus.staging
+        paths:
+          - /
+        pathType: ImplementationSpecific
       prometheusSpec:
         retention: 24h
         resources:
@@ -42,9 +60,10 @@ spec:
       adminPassword: flux
       ingress:
         enabled: true
-        ingressClassName: "traefik"
+        annotations:
+          kubernetes.io/ingress.class: "traefik"
         hosts:
-          - host: "grafana.staging"
-            paths:
-              - path: "/"
-                pathType: Prefix
+          - grafana.staging
+        paths:
+          - /
+        pathType: ImplementationSpecific

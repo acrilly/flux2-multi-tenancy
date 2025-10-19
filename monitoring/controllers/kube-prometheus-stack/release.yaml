@@ -29,22 +29,26 @@ spec:
       ingress:
         enabled: true
         annotations:
-          kubernetes.io/ingress.class: "traefik"
+          kubernetes.io/ingress.class: traefik
+          traefik.ingress.kubernetes.io/router.entrypoints: web
         hosts:
           - alertmgr.staging
         paths:
           - /
         pathType: ImplementationSpecific
+        tls: []
     prometheus:
       ingress:
         enabled: true
         annotations:
-          kubernetes.io/ingress.class: "traefik"
+          kubernetes.io/ingress.class: traefik
+          traefik.ingress.kubernetes.io/router.entrypoints: web
         hosts:
           - prometheus.staging
         paths:
           - /
         pathType: ImplementationSpecific
+        tls: []
       prometheusSpec:
         retention: 24h
         resources:
@@ -61,9 +65,11 @@ spec:
       ingress:
         enabled: true
         annotations:
-          kubernetes.io/ingress.class: "traefik"
+          kubernetes.io/ingress.class: traefik
+          traefik.ingress.kubernetes.io/router.entrypoints: web
         hosts:
           - grafana.staging
         paths:
           - /
         pathType: ImplementationSpecific
+        tls: []

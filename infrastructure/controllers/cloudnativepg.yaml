@@ -23,7 +23,6 @@ metadata:
   namespace: cloudnative-pg
 spec:
   interval: 5m
-  serviceAccountName: kustomize-controller
   chart:
     spec:
       chart: cloudnative-pg

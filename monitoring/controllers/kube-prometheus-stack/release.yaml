@@ -44,7 +44,7 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         hosts:
-          - hosts: "grafana.staging"
+          - host: "grafana.staging"
             paths:
               - path: "/"
                 pathType: Prefix

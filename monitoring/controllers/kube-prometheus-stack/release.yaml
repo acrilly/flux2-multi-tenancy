@@ -40,3 +40,11 @@ spec:
     grafana:
       defaultDashboardsEnabled: false
       adminPassword: flux
+      ingress:
+        enabled: true
+        ingressClassName: "traefik"
+        hosts:
+          - hosts: "grafana.staging"
+            paths:
+              - path: "/"
+                pathType: Prefix

@@ -4,4 +4,4 @@ resources:
   - weave-gitops-dashboard.yaml
   - sealedsecrets.yaml
   - cloudnativepg.yaml
-  - pgadmin.yaml
+  #- pgadmin.yaml

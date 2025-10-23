@@ -7,7 +7,7 @@ metadata:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: runix
+  name: runix-charts
   namespace: pgadmin
 spec:
   interval: 120m
@@ -23,10 +23,28 @@ spec:
   chart:
     spec:
       chart: pgadmin4
+      version: 1.10.0
       sourceRef:
         kind: HelmRepository
-        name: runix
+        name: runix-charts
         namespace: pgadmin
+  values:
+    env:
+      email: andrew.crilly@live.co.uk
+      password: admin
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+      hosts:
+        - host: pgadmin.staging
+          paths:
+            - path: /
+              pathType: Prefix
+    persistentVolume:
+      enabled: true
+      size: 1gi
   interval: 5m
   install:
     remediation:

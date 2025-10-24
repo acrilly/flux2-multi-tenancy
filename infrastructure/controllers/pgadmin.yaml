@@ -30,7 +30,7 @@ spec:
         namespace: pgadmin
   values:
     env:
-      email: "pgadmin"
+      email: "andrew.crilly@live.co.uk"
       password: "admin"
     ingress:
       enabled: true

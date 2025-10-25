@@ -29,6 +29,11 @@ spec:
         name: runix
         namespace: pgadmin
   values:
+    startupProbe:
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      timeoutSeconds: 2
+      failureThreshold: 30
     env:
       email: "andrew.crilly@live.co.uk"
       password: "admin"

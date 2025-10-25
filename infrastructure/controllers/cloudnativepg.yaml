@@ -64,14 +64,6 @@ metadata:
   name: cluster-example-superuser
 type: kubernetes.io/basic-auth
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: backup-creds
-data:
-  ACCESS_KEY_ID: a2V5X2lk
-  ACCESS_SECRET_KEY: c2VjcmV0X2tleQ==
----
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
@@ -115,27 +107,6 @@ spec:
   storage:
     storageClass: standard
     size: 1Gi
-
-  #backup:
-  #  barmanObjectStore:
-  #    destinationPath: s3://cluster-example-full-backup/
-  #    endpointURL: http://custom-endpoint:1234
-  #    s3Credentials:
-  #      accessKeyId:
-  #        name: backup-creds
-  #        key: ACCESS_KEY_ID
-  #      secretAccessKey:
-  #        name: backup-creds
-  #        key: ACCESS_SECRET_KEY
-  #    wal:
-  #      compression: gzip
-  #      encryption: AES256
-  #    data:
-  #      compression: gzip
-  #      encryption: AES256
-  #      immediateCheckpoint: false
-  #      jobs: 2
-   # retentionPolicy: "30d"
 
   resources:
     requests:

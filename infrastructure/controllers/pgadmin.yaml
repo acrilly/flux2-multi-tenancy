@@ -30,10 +30,10 @@ spec:
         namespace: pgadmin
   values:
     startupProbe:
-      initialDelaySeconds: 10
-      periodSeconds: 5
+      initialDelaySeconds: 30
+      periodSeconds: 10
       timeoutSeconds: 2
-      failureThreshold: 30
+      failureThreshold: 6
     env:
       email: "andrew.crilly@live.co.uk"
       password: "admin"

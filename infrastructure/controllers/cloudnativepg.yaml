@@ -36,3 +36,18 @@ spec:
         create: true
         namespace: "monitoring"
       podMonitorEnabled: true
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: database
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-cluster
+  namespace: database
+spec:
+  instances: 3
+  storage:
+    size: 1Gi

@@ -107,7 +107,6 @@ spec:
     name: cluster-example-superuser
 
   storage:
-    storageClass: standard
     size: 1Gi
 
   resources:

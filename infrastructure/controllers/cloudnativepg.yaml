@@ -53,6 +53,7 @@ data:
 kind: Secret
 metadata:
   name: cluster-example-app-user
+  namespace: database
 type: kubernetes.io/basic-auth
 ---
 apiVersion: v1
@@ -62,6 +63,7 @@ data:
 kind: Secret
 metadata:
   name: cluster-example-superuser
+  namespace: database
 type: kubernetes.io/basic-auth
 ---
 apiVersion: postgresql.cnpg.io/v1

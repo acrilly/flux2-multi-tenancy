@@ -54,3 +54,19 @@ spec:
       target:
         kind: HelmRelease
         name: ww-gitops
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: elastic-cluster
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-controllers
+  interval: 15m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  serviceAccountName: kustomize-controller
+  path: ./infrastructure/elastic
+  prune: true

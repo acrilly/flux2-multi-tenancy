@@ -1,0 +1,45 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: elastic-stack
+---
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+  namespace: elastic-stack
+spec:
+  version: 9.2.0
+  nodeSets:
+  - name: default
+    count: 2
+    config:
+      node.store.allow_mmap: false
+    podTemplate:
+      metadata:
+        labels:
+          scrape: es
+---
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: quickstart
+  namespace: elastic-stack
+spec:
+  version: 9.2.0
+  count: 1
+  elasticsearchRef:
+    name: quickstart
+  podTemplate:
+    metadata:
+      labels:
+        scrape: kb
+  http:
+    service:
+      spec:
+        type: NodePort
+        ports:
+          - protocol: TCP
+            nodePort: 30443
+            port: 5601

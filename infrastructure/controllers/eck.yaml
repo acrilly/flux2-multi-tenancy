@@ -33,6 +33,8 @@ spec:
       retries: 3
   # Default values: https://github.com/elastic/cloud-on-k8s/blob/main/deploy/eck-operator/values.yaml
   values:
+    image:
+      fips: true # adherence to FIPS 140-2
     installCRDs: true
     config:
       validateStorageClass: false

@@ -5,13 +5,13 @@ metadata:
   name: cert-manager
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
+kind: HelmRepository
 metadata:
   name: cert-manager
   namespace: flux-system
 spec:
+  url: https://charts.jetstack.io
   interval: 1h
-  url: oci://ghcr.io/cert-manager/charts
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -19,11 +19,15 @@ metadata:
   name: cert-manager
   namespace: cert-manager
 spec:
-  interval: 10m
-  chartRef:
-    kind: OCIRepository
-    name: cert-manager
-    namespace: cert-manager
+  chart:
+    spec:
+      chart: cert-manager
+      version: v1.19.1 # Use latest stable version
+      sourceRef:
+        kind: HelmRepository
+        name: cert-manager
+        namespace: flux-system
+  interval: 5m
   install:
     crds: CreateReplace
   values:

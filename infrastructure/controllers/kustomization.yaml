@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - pgadmin.yaml
-  - cloudnativepg.yaml
+  #- cloudnativepg.yaml
   - eck.yaml
   #- weave-gitops-dashboard.yaml
   #- sealedsecrets.yaml

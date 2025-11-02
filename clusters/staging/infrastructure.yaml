@@ -69,10 +69,10 @@ spec:
           path: /spec/values/ingress/hosts/0/host
           value: "dashboard.leclub.org.uk"
         - op: replace
-          path: /spec/tls/0/hosts/0
-          value: dashboard.leclub.org.uk
+          path: /spec/values/ingress/tls/0/hosts/0
+          value: "dashboard.leclub.org.uk"
         - op: replace
-          path: /spec/tls/0/secretName
+          path: /spec/values/ingress/tls/0/secretName
           value: leclub-org-uk-1
       target:
         kind: HelmRelease

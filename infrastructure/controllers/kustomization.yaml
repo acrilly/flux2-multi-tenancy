@@ -4,5 +4,5 @@ resources:
   - pgadmin.yaml
   #- cloudnativepg.yaml
   - eck.yaml
-  #- weave-gitops-dashboard.yaml
+  - weave-gitops-dashboard.yaml
   #- sealedsecrets.yaml

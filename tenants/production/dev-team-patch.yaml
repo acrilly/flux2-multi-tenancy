@@ -4,4 +4,4 @@ metadata:
   name: dev-team
   namespace: apps
 spec:
-  path: ./production
+  path: ./production # path to production overlays

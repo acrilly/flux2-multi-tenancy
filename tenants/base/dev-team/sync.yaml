@@ -1,23 +1,23 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: dev-team
-  namespace: apps
+  name: dev-team # dev-team git repository
+  namespace: apps # namespace for dev-team tenant
 spec:
   interval: 1m
-  url: https://github.com/acrilly/dev-team
+  url: https://github.com/acrilly/dev-team # dev-team git repository url
   ref:
-    branch: main
+    branch: main # branch to track
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: dev-team
-  namespace: apps
+  name: dev-team # kustomization for dev-team tenant
+  namespace: apps # namespace for dev-team tenant
 spec:
-  serviceAccountName: dev-team
+  serviceAccountName: dev-team # service account for dev-team tenant
   interval: 5m
   sourceRef:
     kind: GitRepository
-    name: dev-team
+    name: dev-team # dev-team git repository
   prune: true

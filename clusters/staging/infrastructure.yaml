@@ -68,12 +68,6 @@ spec:
         - op: replace
           path: /spec/values/ingress/hosts/0/host
           value: "dashboard.leclub.org.uk"
-        - op: replace
-          path: /spec/values/ingress/tls/0/hosts/0
-          value: "dashboard.leclub.org.uk"
-        - op: replace
-          path: /spec/values/ingress/tls/0/secretName
-          value: leclub-org-uk-1
       target:
         kind: HelmRelease
         name: ww-gitops

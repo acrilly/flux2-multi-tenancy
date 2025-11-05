@@ -30,9 +30,9 @@ spec:
         kind: HelmRepository
         name: cloudnative-pg
       version: 0.26.1
-  values:
-    monitoring:
-      grafanaDashboard:
-        create: true
-        namespace: "monitoring"
-      podMonitorEnabled: true
+ # values:
+ #   monitoring:
+ #     grafanaDashboard:
+ #       create: true
+ #       namespace: "monitoring"
+ #     podMonitorEnabled: true

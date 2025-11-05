@@ -53,5 +53,4 @@ spec:
   valuesFrom:
     - kind: GitRepository
       name: edot-configs
-      namespace: flux-system
       valuesKey: edot/values.yaml

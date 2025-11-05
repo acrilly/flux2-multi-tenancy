@@ -1,3 +1,5 @@
+---
+# Deploy cert-manager
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -11,10 +13,11 @@ spec:
     kind: GitRepository
     name: flux-system
   serviceAccountName: kustomize-controller
-  path: ./infrastructure/core
+  path: ./infrastructure/cert-manager
   prune: true
   wait: true
 ---
+# Deploy Kyverno
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -31,6 +34,7 @@ spec:
   wait: true
   timeout: 10m
 ---
+# Deploy Kyverno policies
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -47,10 +51,11 @@ spec:
   path: ./infrastructure/kyverno-policies
   prune: true
 ---
+# Deploy infrastructure operators
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-controllers # change here
+  name: infra-operators # change here
   namespace: flux-system
 spec:
   interval: 1h
@@ -60,7 +65,25 @@ spec:
     kind: GitRepository
     name: flux-system
   serviceAccountName: kustomize-controller
-  path: ./infrastructure/controllers # and here
+  path: ./infrastructure/operators # and here
+  prune: true
+  wait: true
+---
+# Deploy infrastructure tools
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-tools # change here
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 5m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  serviceAccountName: kustomize-controller
+  path: ./infrastructure/tools # and here
   prune: true
   wait: true
   patches:
@@ -72,6 +95,7 @@ spec:
         kind: HelmRelease
         name: ww-gitops
 ---
+# Deploy Elastic Stack
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -86,4 +110,21 @@ spec:
     name: flux-system
   serviceAccountName: kustomize-controller
   path: ./infrastructure/elastic
+  prune: true
+---
+# Deploy CloudNativePG Cluster
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cnpg-cluster
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-controllers
+  interval: 15m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  serviceAccountName: kustomize-controller
+  path: ./infrastructure/cnpg
   prune: true

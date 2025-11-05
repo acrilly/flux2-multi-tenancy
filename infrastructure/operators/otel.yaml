@@ -18,7 +18,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: edot-configs
-  namespace: flux-system
+  namespace: observability
 spec:
   interval: 30s
   ref:

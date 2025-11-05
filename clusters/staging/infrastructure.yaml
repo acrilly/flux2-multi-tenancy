@@ -76,6 +76,8 @@ metadata:
   name: infra-tools # change here
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: core
   interval: 1h
   retryInterval: 5m
   timeout: 5m
@@ -103,7 +105,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra-controllers
+    - name: infra-operators
   interval: 15m0s
   sourceRef:
     kind: GitRepository
@@ -120,7 +122,9 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra-controllers
+    - name: infra-operators
+    - name: infra-tools
+    - name: core
   interval: 15m0s
   sourceRef:
     kind: GitRepository

@@ -7,10 +7,10 @@ metadata:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: opentelemetry-operator
+  name: opentelemetry
   namespace: observability
 spec:
-  interval: 120m
+  interval: 1h
   url: https://open-telemetry.github.io/opentelemetry-helm-charts
 ---
 # Create ConfigMap from EDOT values file
@@ -37,7 +37,7 @@ spec:
   chart:
     spec:
       chart: opentelemetry-kube-stack
-      version: 0.11.1 # or latest available
+      version: 0.11.1
       sourceRef:
         kind: HelmRepository
         name: opentelemetry

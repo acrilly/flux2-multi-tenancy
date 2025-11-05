@@ -38,7 +38,11 @@ spec:
   http:
     service:
       spec:
-        type: LoadBalancer
+        type: NodePort
+        ports:
+          - protocol: TCP
+            nodePort: 30443
+            port: 5601
 ---
 apiVersion: apm.k8s.elastic.co/v1
 kind: ApmServer

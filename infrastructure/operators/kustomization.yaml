@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - cloudnativepg.yaml
   - eck.yaml
+  - otel.yaml

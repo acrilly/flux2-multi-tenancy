@@ -25,7 +25,7 @@ data:
     kubeletScraping:
       enabled: true
     elastic_endpoint: "https://192.168.0.152:9200"
-    elastic_api_key: "SUswelU1b0JtZS1kck9FUUw3aU46ZHdTWVZfWl9ub2JkV2ZxR29kLWYwUQ=="
+    elastic_api_key: "TXEwZlZwb0JtZS1kck9FUTJiaW46STB4cVBPWktVdzNyblFDNTBIekU1QQ=="
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

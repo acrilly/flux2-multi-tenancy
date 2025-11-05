@@ -13,27 +13,19 @@ spec:
   interval: 120m
   url: https://open-telemetry.github.io/opentelemetry-helm-charts
 ---
-# Git repository for EDOT values file
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: GitRepository
-metadata:
-  name: edot-configs
-  namespace: observability
-spec:
-  interval: 30s
-  ref:
-    branch: master
-  url: https://github.com/acrilly/observability-configs.git
----
+# Create ConfigMap from EDOT values file
 apiVersion: v1
-kind: Secret
+kind: ConfigMap
 metadata:
-  name: elastic-secret-otel
+  name: otel-values
   namespace: observability
-type: Opaque
-stringData:
-  elastic_endpoint: "https://quickstart-es-http.elastic-stack.svc:9200"
-  elastic_api_key: SUswelU1b0JtZS1kck9FUUw3aU46ZHdTWVZfWl9ub2JkV2ZxR29kLWYwUQ==
+data:
+  values.yaml: |
+    clusterName: my-cluster
+    kubeletScraping:
+      enabled: true
+    elastic_endpoint: "https://quickstart-es-http.elastic-stack.svc:9200"
+    elastic_api_key: "SUswelU1b0JtZS1kck9FUUw3aU46ZHdTWVZfWl9ub2JkV2ZxR29kLWYwUQ=="
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -51,6 +43,6 @@ spec:
         name: opentelemetry
         namespace: observability
   valuesFrom:
-    - kind: GitRepository
-      name: edot-configs
-      valuesKey: edot/values.yaml
+    - kind: ConfigMap
+      name: otel-values
+      valuesKey: values.yaml

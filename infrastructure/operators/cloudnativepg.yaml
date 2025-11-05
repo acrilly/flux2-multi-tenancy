@@ -28,7 +28,8 @@ spec:
       chart: cloudnative-pg
       sourceRef:
         kind: HelmRepository
-        name: cloudnative-pg
+        name: cnpg
+        namespace: cnpg-system
       version: 0.26.1
  # values:
  #   monitoring:

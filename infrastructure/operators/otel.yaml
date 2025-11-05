@@ -24,7 +24,7 @@ data:
     clusterName: my-cluster
     kubeletScraping:
       enabled: true
-    elastic_endpoint: "https://quickstart-es-http.elastic-stack.svc:9200"
+    elastic_endpoint: "https://192.168.0.152:9200" # quickstart-es-http.elastic-stack.svc
     elastic_api_key: "SUswelU1b0JtZS1kck9FUUw3aU46ZHdTWVZfWl9ub2JkV2ZxR29kLWYwUQ=="
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2

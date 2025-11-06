@@ -41,4 +41,4 @@ spec:
   valuesFrom:
   - kind: ConfigMap
     name: otel-values
-    #valuesKey: values.yaml
+    valuesKey: values.yaml

@@ -4,3 +4,8 @@ resources:
   - cloudnativepg.yaml
   - eck.yaml
   - otel.yaml
+configMapGenerator:
+- name: otel-values
+  namespace: observability
+  files:
+    - values.yaml=values.yaml

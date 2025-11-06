@@ -6,6 +6,7 @@ resources:
   - otel.yaml
   - vault.yaml
   - minio.yaml
+  - strimzi.yaml
 configMapGenerator:
   - name: otel-values
     namespace: observability

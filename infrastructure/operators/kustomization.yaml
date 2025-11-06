@@ -4,6 +4,7 @@ resources:
   - cloudnativepg.yaml
   - eck.yaml
   - otel.yaml
+  - vault.yaml
 configMapGenerator:
   - name: otel-values
     namespace: observability

@@ -6,7 +6,6 @@ resources:
   - otel.yaml
   - vault.yaml
   - minio.yaml
-  - rabbitmq.yaml
 configMapGenerator:
   - name: otel-values
     namespace: observability

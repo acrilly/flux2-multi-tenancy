@@ -5,7 +5,9 @@ resources:
   - eck.yaml
   - otel.yaml
 configMapGenerator:
-- name: otel-values
-  namespace: observability
-  files:
-    - values.yaml=values.yaml
+  - name: otel-values
+    namespace: observability
+    files:
+      - values.yaml
+generatorOptions:
+  disableNameSuffixHash: true

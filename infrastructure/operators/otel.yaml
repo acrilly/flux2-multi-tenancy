@@ -39,6 +39,6 @@ spec:
         name: opentelemetry
         namespace: observability
   valuesFrom:
-    - kind: ConfigMap
-      name: otel-values
-      #valuesKey: values.yaml
+  - kind: ConfigMap
+    name: otel-values
+    #valuesKey: values.yaml

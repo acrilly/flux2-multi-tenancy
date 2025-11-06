@@ -33,7 +33,7 @@ spec:
   chart:
     spec:
       chart: opentelemetry-kube-stack
-      version: 0.11.1
+      version: 0.10.5
       sourceRef:
         kind: HelmRepository
         name: opentelemetry

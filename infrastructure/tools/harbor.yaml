@@ -38,10 +38,10 @@ spec:
         secretName: harbor-tls
       ingress:
         hosts:
-          core: harbor.example.com
-          notary: notary.harbor.example.com
+          core: harbor.leclub.org.uk
+          notary: notary.harbor.leclub.org.uk
         annotations:
           kubernetes.io/ingress.class: traefik
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    externalURL: https://harbor.example.com
+    externalURL: https://harbor.leclub.org.uk
     harborAdminPassword: "YourSecurePassword"

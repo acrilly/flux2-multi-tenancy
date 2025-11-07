@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - cnpg.yaml
   - eck.yaml
-  - otel.yaml
+  #- otel.yaml
   - vault.yaml
   - minio.yaml
   - strimzi.yaml

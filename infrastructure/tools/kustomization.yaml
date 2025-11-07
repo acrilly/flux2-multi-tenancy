@@ -4,3 +4,4 @@ resources:
   - pgadmin.yaml
   - weave-gitops-dashboard.yaml
   - sealedsecrets.yaml
+  - harbor.yaml

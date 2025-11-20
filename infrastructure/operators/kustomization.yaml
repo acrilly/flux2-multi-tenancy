@@ -3,9 +3,9 @@ kind: Kustomization
 resources:
   - cnpg.yaml
   - eck.yaml
-  #- otel.yaml
-  - vault.yaml
-  - minio.yaml
+  - otel.yaml
+  #- vault.yaml
+  #- minio.yaml
   #- strimzi.yaml
 configMapGenerator:
   - name: otel-values

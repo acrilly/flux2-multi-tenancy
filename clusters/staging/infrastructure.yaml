@@ -108,7 +108,7 @@ metadata:
 spec:
   dependsOn:
     - name: infra-operators
-  interval: 15m0s
+  interval: 10m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -127,7 +127,7 @@ spec:
     - name: infra-operators
     - name: infra-tools
     - name: core
-  interval: 15m0s
+  interval: 10m0s
   sourceRef:
     kind: GitRepository
     name: flux-system

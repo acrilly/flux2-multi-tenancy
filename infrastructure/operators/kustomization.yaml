@@ -7,10 +7,10 @@ resources:
   #- vault.yaml
   #- minio.yaml
   #- strimzi.yaml
-configMapGenerator:
-  - name: otel-values
-    namespace: observability
-    files:
-      - values.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+#configMapGenerator:
+#  - name: otel-values
+#    namespace: observability
+#    files:
+#      - values.yaml
+#generatorOptions:
+#  disableNameSuffixHash: true

@@ -9,6 +9,7 @@ resources:
   #- strimzi.yaml
 configMapGenerator:
   - name: otel-values
+    namespace: flux-system
     files:
       - values.yaml
 generatorOptions:

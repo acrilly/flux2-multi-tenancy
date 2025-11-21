@@ -41,5 +41,4 @@ spec:
   valuesFrom:
   - kind: ConfigMap
     name: otel-values
-    namespace: flux-system
     valuesKey: values.yaml

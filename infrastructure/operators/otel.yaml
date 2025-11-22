@@ -21,7 +21,7 @@ metadata:
 type: Opaque
 stringData:
   elastic_endpoint: 'https://quickstart-es-http.elastic-stack.svc:9200' 
-  elastic_api_key: 'VW1LYnBab0JUM3RBMjdBWUJyVC06a0NrcFVvUzY2eE1DTVFDUGt4LXVlZw==' # base64 encoded 'elastic:changeme'
+  elastic_api_key: 'NE4zS3Fwb0ItSFpxT3lueTlZa246UjBrWTUtdFNXNTNSdHY1RGo5dWl3dw==' # base64 encoded 'elastic:changeme'
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

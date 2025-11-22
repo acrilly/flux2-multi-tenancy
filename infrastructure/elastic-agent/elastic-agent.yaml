@@ -34,3 +34,5 @@ spec:
     kubernetes:
       enabled: true
       onboardingID: "fac0735d-7b5d-47e8-bd60-f0df611b03ca"
+    ssl:
+      insecure: true

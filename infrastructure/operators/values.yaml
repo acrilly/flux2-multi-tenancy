@@ -127,12 +127,6 @@ collectors:
               - job_name: 'kube-state-metrics'
                 static_configs:
                   - targets: ['kube-state-metrics.kube-state-metrics.svc.cluster.local:8080']
-                relabel_configs:
-                  # add k8s resource attributes useful to Elastic (optional)
-                  - source_labels: ['__meta_kubernetes_namespace']
-                    target_label: 'k8s.namespace'
-                  - source_labels: ['__meta_kubernetes_pod_name']
-                    target_label: 'k8s.pod.name'
         # [K8s Events Receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/k8seventsreceiver)
         k8s_events:
         # [K8s Objects Receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/k8sobjectsreceiver)

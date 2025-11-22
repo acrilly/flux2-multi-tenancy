@@ -168,7 +168,7 @@ collectors:
           metrics:
             receivers:
               - k8s_cluster
-              - prometheus/kube_state
+            #  - prometheus/kube_state
             processors:
               - k8sattributes
               - resourcedetection/eks

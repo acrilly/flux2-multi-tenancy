@@ -33,6 +33,4 @@ spec:
         api_key: "VU13ZXJKb0JucEdGRHhWUVA1RG46SjNGUldZV1FNV2szSUczWTFDZVFJdw==" 
     kubernetes:
       enabled: true
-      onboardingID: "fac0735d-7b5d-47e8-bd60-f0df611b03ca"
-    ssl:
-      insecure: true
+      onboardingID: "fac0735d-7b5d-47e8-bd60-f0df611b03ca" 

@@ -13,7 +13,7 @@ spec:
     kind: GitRepository
     name: flux-system
   serviceAccountName: kustomize-controller
-  path: ./infrastructure/cert-manager
+  path: ./infrastructure/core
   prune: true
   wait: true
 ---

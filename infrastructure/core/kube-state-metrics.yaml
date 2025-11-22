@@ -1,0 +1,50 @@
+# namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-state-metrics
+  labels:
+    app: kube-state-metrics
+---
+# helmrepository.yaml
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: prometheus-community-oci
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: oci://ghcr.io/prometheus-community/charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-state-metrics
+  namespace: kube-state-metrics
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: kube-state-metrics
+      version: "6.4.1"                    # choose an appropriate chart version
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-oci
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 2
+  upgrade:
+    remediation:
+      retries: 2
+  values:
+    replicaCount: 1
+    rbac:
+      create: true
+    metrics:
+      enabled: true
+    service:
+      port: 8080
+    serviceMonitor:
+      enabled: false   # set true if you use Prometheus Operator and want a ServiceMonitor; change namespace accordingly
+

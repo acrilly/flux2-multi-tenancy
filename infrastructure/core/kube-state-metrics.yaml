@@ -7,16 +7,17 @@ metadata:
     app: kube-state-metrics
 ---
 # helmrepository.yaml
+# helmrepository.yaml
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: prometheus-community-oci
+  name: prometheus-community
   namespace: flux-system
 spec:
-  interval: 1h
-  url: oci://ghcr.io/prometheus-community/charts
+  interval: 1h0m
+  url: https://prometheus-community.github.io/helm-charts
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: kube-state-metrics
@@ -26,16 +27,17 @@ spec:
   chart:
     spec:
       chart: kube-state-metrics
+      version: "6.4.1"           # pick a suitable chart version for your cluster
       sourceRef:
         kind: HelmRepository
-        name: prometheus-community-oci
+        name: prometheus-community
         namespace: flux-system
   install:
     remediation:
-      retries: 2
+      retries: 3
   upgrade:
     remediation:
-      retries: 2
+      retries: 3
   values:
     replicaCount: 1
     rbac:

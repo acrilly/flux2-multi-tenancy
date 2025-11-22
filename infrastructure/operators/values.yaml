@@ -59,6 +59,8 @@ collectors:
         # memory_limiter processor inherited from helm chart (to avoid OOM kills) (https://github.com/open-telemetry/opentelemetry-collector/blob/main/processor/memorylimiterprocessor)
         memory_limiter:
           limit_mib: 400
+          spike_limit_mib: 100
+          check_interval: 5s
         # [Resource Detection Processor](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/resourcedetectionprocessor)
         resourcedetection/eks:
           # Detects resources from environment variables and EKS (Elastic Kubernetes Service).
@@ -168,19 +170,17 @@ collectors:
             #processors: [batch, memory_limiter]
             #exporters: [otlp/gateway]
           metrics:
-            exporters:
-              - debug
-              - otlp/gateway
+            receivers:
+              - k8s_cluster
             processors:
               - k8sattributes
               - resourcedetection/eks
               - resourcedetection/gcp
               - resourcedetection/aks
               - resource/hostname
-              - batch
-              - memory_limiter
-            receivers:
-              - k8s_cluster
+            exporters:
+              - debug
+              - otlp/gateway
           logs:
             receivers:
               - k8sobjects

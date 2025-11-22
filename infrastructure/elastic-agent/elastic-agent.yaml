@@ -1,0 +1,36 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: elastic
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://helm.elastic.co/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: elastic-agent
+  namespace: kube-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: elastic-agent
+      version: "9.2.1"
+      sourceRef:
+        kind: HelmRepository
+        name: elastic
+        namespace: flux-system
+  values:
+    outputs:
+      default:
+        url: "https://quickstart-es-http.elastic-stack.svc:9200"
+        type: "ESPlainAuthAPI"
+        # the chart may accept either `api_key` or an api_key secret depending on chart version
+        # Here we reference the Secret created above via string value (safer to use secret)
+        api_key: "VU13ZXJKb0JucEdGRHhWUVA1RG46SjNGUldZV1FNV2szSUczWTFDZVFJdw==" 
+    kubernetes:
+      enabled: true
+      onboardingID: "fac0735d-7b5d-47e8-bd60-f0df611b03ca"

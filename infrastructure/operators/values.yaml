@@ -168,15 +168,12 @@ collectors:
           metrics:
             receivers:
               - k8s_cluster
-            #  - prometheus/kube_state
             processors:
               - k8sattributes
               - resourcedetection/eks
               - resourcedetection/gcp
               - resourcedetection/aks
               - resource/hostname
-              - batch
-              - memory_limiter
             exporters:
               - debug
               - otlp/gateway

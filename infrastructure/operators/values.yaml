@@ -169,6 +169,10 @@ collectors:
       # [Service Section](https://opentelemetry.io/docs/collector/configuration/#service)
       service:
         pipelines:
+          metrics/kube_state:
+            receivers: [prometheus/kube_state]
+            processors: [batch, memory_limiter]
+            exporters: [otlp/gateway]
           metrics:
             exporters:
               - debug
@@ -183,7 +187,6 @@ collectors:
               - memory_limiter
             receivers:
               - k8s_cluster
-              - prometheus/kube_state
           logs:
             receivers:
               - k8sobjects

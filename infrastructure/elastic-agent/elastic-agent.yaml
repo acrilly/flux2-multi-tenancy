@@ -28,6 +28,8 @@ spec:
       default:
         url: "https://quickstart-es-http.elastic-stack.svc:9200"
         type: "ESPlainAuthAPI"
+        ssl:
+          insecure: true
         # the chart may accept either `api_key` or an api_key secret depending on chart version
         # Here we reference the Secret created above via string value (safer to use secret)
         api_key: "VU13ZXJKb0JucEdGRHhWUVA1RG46SjNGUldZV1FNV2szSUczWTFDZVFJdw==" 

@@ -122,20 +122,6 @@ collectors:
               - "service.version"
       receivers:
         # List of receivers (https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver)
-        # [Kubelet Stats Receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/receiver/kubeletstatsreceiver)
-        kubeletstats:
-          collection_interval: 10s
-          auth_type: 'serviceAccount'
-          endpoint: '${env:K8S_NODE_NAME}:10250'
-          insecure_skip_verify: true # Required to work for all CSPs without an issue
-          node: '${env:K8S_NODE_NAME}'
-          k8s_api_config:
-            auth_type: serviceAccount
-          metric_groups:
-            - node
-            - container
-            - volume
-            - pod
         # [K8s Events Receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/k8seventsreceiver)
         k8s_events:
         # [K8s Objects Receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/k8sobjectsreceiver)
@@ -445,6 +431,11 @@ collectors:
           insecure_skip_verify: true
           k8s_api_config:
             auth_type: serviceAccount
+          metric_groups:
+            - node
+            - container
+            - volume
+            - pod
           metrics:
             k8s.pod.memory.node.utilization:
               enabled: true

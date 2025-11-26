@@ -17,7 +17,7 @@ crds:
 defaultCRConfig:
   image:
     repository: "docker.elastic.co/elastic-agent/elastic-agent"
-    tag: "9.2.0"
+    tag: "9.2.1"
   targetAllocator:
     enabled: false # Enable/disable the Operator's Target allocator.
     # Refer to: https://github.com/open-telemetry/opentelemetry-operator/tree/main/cmd/otel-allocator
@@ -53,14 +53,6 @@ collectors:
           tls:
             insecure: true
       processors:
-        # [Batch Processor](https://github.com/open-telemetry/opentelemetry-collector/blob/main/processor/batchprocessor)
-        batch:
-          timeout: 10s
-        # memory_limiter processor inherited from helm chart (to avoid OOM kills) (https://github.com/open-telemetry/opentelemetry-collector/blob/main/processor/memorylimiterprocessor)
-        memory_limiter:
-          limit_mib: 400
-          spike_limit_mib: 100
-          check_interval: 5s
         # [Resource Detection Processor](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/processor/resourcedetectionprocessor)
         resourcedetection/eks:
           # Detects resources from environment variables and EKS (Elastic Kubernetes Service).
@@ -121,7 +113,6 @@ collectors:
               - "service.name"
               - "service.version"
       receivers:
-        # List of receivers (https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver)
         # [K8s Events Receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/k8seventsreceiver)
         k8s_events:
         # [K8s Objects Receiver](https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/receiver/k8sobjectsreceiver)
@@ -159,18 +150,17 @@ collectors:
       service:
         pipelines:
           metrics:
-            receivers:
-              - k8s_cluster
-              - kubeletstats
+            exporters:
+              - debug
+              - otlp/gateway
             processors:
               - k8sattributes
               - resourcedetection/eks
               - resourcedetection/gcp
               - resourcedetection/aks
               - resource/hostname
-            exporters:
-              - debug
-              - otlp/gateway
+            receivers:
+              - k8s_cluster
           logs:
             receivers:
               - k8sobjects
@@ -180,8 +170,6 @@ collectors:
               - resourcedetection/gcp
               - resourcedetection/aks
               - resource/hostname
-              - batch
-              - memory_limiter
             exporters:
               - debug
               - otlp/gateway
@@ -431,11 +419,6 @@ collectors:
           insecure_skip_verify: true
           k8s_api_config:
             auth_type: serviceAccount
-          metric_groups:
-            - node
-            - container
-            - volume
-            - pod
           metrics:
             k8s.pod.memory.node.utilization:
               enabled: true
@@ -586,8 +569,8 @@ collectors:
             - ${env:ELASTIC_ENDPOINT}
           api_key: ${env:ELASTIC_API_KEY} # API key for Elasticsearch authentication.
           # Enable in order to skip the SSL certificate Check
-          tls:
-            insecure_skip_verify: true
+          # tls:
+          #   insecure_skip_verify: true
           mapping:
             mode: otel
       service:

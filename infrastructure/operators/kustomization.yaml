@@ -3,14 +3,14 @@ kind: Kustomization
 resources:
   - cnpg.yaml
   - eck.yaml
-  - otel.yaml
+  #- otel.yaml
   #- vault.yaml
   #- minio.yaml
   #- strimzi.yaml
-configMapGenerator:
-  - name: otel-values
-    namespace: opentelemetry-operator-system  
-    files:
-      - values.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+#configMapGenerator:
+#  - name: otel-values
+#    namespace: opentelemetry-operator-system  
+#    files:
+#      - values.yaml
+#generatorOptions:
+#  disableNameSuffixHash: true

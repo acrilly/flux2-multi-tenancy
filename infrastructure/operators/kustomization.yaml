@@ -9,7 +9,7 @@ resources:
   #- strimzi.yaml
 configMapGenerator:
   - name: otel-values
-    namespace: observability
+    namespace: opentelemetry-operator-system
     files:
       - values.yaml
 generatorOptions:

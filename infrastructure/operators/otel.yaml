@@ -42,4 +42,5 @@ spec:
   - kind: ConfigMap
     name: otel-values
     valuesKey: values.yaml
-  vales:
+  values:
+    clusterName: flux2-multi-tenancy-cluster

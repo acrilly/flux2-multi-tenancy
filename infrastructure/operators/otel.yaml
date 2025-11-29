@@ -18,7 +18,7 @@ kind: Secret
 metadata:
   name: elastic-secret-otel
   namespace: opentelemetry-operator-system
-type: Opaque
+type: generic
 stringData:
   elastic_endpoint: 'https://quickstart-es-http.elastic-stack.svc:9200' 
   elastic_api_key: 'akhTb3o1b0JzX2hLNEo2QWxSaE06dndZTzlqMmt2ckxXOWhkZnpVMDB0QQ==' # base64 encoded 'elastic:changeme'
@@ -42,3 +42,4 @@ spec:
   - kind: ConfigMap
     name: otel-values
     valuesKey: values.yaml
+  vales:

@@ -10,7 +10,7 @@ metadata:
   name: quickstart
   namespace: elastic-stack
 spec:
-  version: 9.2.0
+  version: 9.2.1
   nodeSets:
   - name: default
     count: 1
@@ -27,7 +27,7 @@ metadata:
   name: quickstart
   namespace: elastic-stack
 spec:
-  version: 9.2.0
+  version: 9.2.1
   count: 1
   elasticsearchRef:
     name: quickstart
@@ -50,7 +50,7 @@ metadata:
   name: apm-server-quickstart
   namespace: elastic-stack
 spec:
-  version: 9.2.0
+  version: 9.2.1
   count: 1
   elasticsearchRef:
     name: quickstart

@@ -569,8 +569,8 @@ collectors:
             - ${env:ELASTIC_ENDPOINT}
           api_key: ${env:ELASTIC_API_KEY} # API key for Elasticsearch authentication.
           # Enable in order to skip the SSL certificate Check
-          tls:
-            insecure_skip_verify: true
+          # tls:
+          #   insecure_skip_verify: true
           mapping:
             mode: otel
       service:

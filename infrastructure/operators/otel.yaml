@@ -44,3 +44,11 @@ spec:
     valuesKey: values.yaml
   values:
     clusterName: flux2-multi-tenancy-cluster
+    collectors:
+      gateway:
+        config:
+          exporters:
+            elasticsearch/otel:
+              # Enable in order to skip the SSL certificate Check
+              tls:
+                insecure_skip_verify: true

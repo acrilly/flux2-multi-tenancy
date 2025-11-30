@@ -54,3 +54,23 @@ spec:
               # Enable in order to skip the SSL certificate Check
               tls:
                 insecure_skip_verify: true
+        # To use our trusted CAs we will mount them to the application in a default location
+        # that most applications expect to find a ca-certificates.crt file. 
+        # The benefit to this approach is that most application code inside the container will use 
+        # this file by default and not require any additional configuration. 
+        # There is the added benefit that you will be mounting over the top of /etc/ssl/certs 
+        # which will remove existing CA certificates, usually present from a container base image 
+        # or pulled in during CI builds.
+        extraVolumes:
+          - name: ca-certificate-only
+            configMap:
+              name: trust-bundle
+              defaultMode: 0644
+              optional: false
+              items:
+              - key: ca-trust-bundle.pem
+                path: ca-trust-bundle.pem
+        extraVolumeMounts:
+          - mountPath: /etc/ssl/certs/
+            name: ca-certificate-only
+            readOnly: true

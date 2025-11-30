@@ -82,7 +82,6 @@ metadata:
   namespace: cert-manager
 spec:
   sources:
-    - useDefaultCAs: true
     - secret:
         name: "root-ca"
         key: "tls.crt"

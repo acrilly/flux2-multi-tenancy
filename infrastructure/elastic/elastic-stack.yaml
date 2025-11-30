@@ -26,13 +26,13 @@ spec:
     - server auth
     - client auth
   dnsNames:
-    - 'elasticsearch-es-http.elasticsearch.es.local'
+    - 'elasticsearch-es-http.elastic-stack.es.local'
     - 'elasticsearch-es-http'
-    - 'elasticsearch-es-http.elasticsearch.svc'
-    - 'elasticsearch-es-http.elasticsearch'
-    - 'elasticsearch-es-internal-http.elasticsearch.svc'
-    - 'elasticsearch-es-internal-http.elasticsearch'
-    - '*.elasticsearch-es-default.elasticsearch.svc'
+    - 'elasticsearch-es-http.elastic-stack.svc'
+    - 'elasticsearch-es-http.elastic-stack'
+    - 'elasticsearch-es-internal-http.elastic-stack.svc'
+    - 'elasticsearch-es-internal-http.elastic-stack'
+    - '*.elasticsearch-es-default.elastic-stack.svc'
   issuerRef:
     name: ca-issuer
     kind: ClusterIssuer

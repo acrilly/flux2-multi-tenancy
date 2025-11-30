@@ -89,6 +89,9 @@ spec:
   target:
     configMap:
       key: "ca-trust-bundle.pem"
+    namespaceSelector:
+      matchLabels:
+        trust: enabled
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer

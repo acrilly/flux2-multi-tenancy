@@ -51,7 +51,6 @@ spec:
         config:
           exporters:
             elasticsearch/otel:
-              endpoint: "https://elasticsearch-es-http.elastic-stack.svc:9200"
               tls:
                 ca_file: "/etc/ssl/certs/ca-trust-bundle.pem"
                 insecure_skip_verify: false

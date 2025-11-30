@@ -4,10 +4,44 @@ kind: Namespace
 metadata:
   name: elastic-stack
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: elastic-tls-secret
+  namespace: elastic-stack
+spec:
+  secretName: elastic-tls-secret
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizations:
+      - Cluster CA
+  commonName: elasticsearch-es-http
+  isCA: false
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 2048
+  usages:
+    - server auth
+    - client auth
+  dnsNames:
+    - 'elasticsearch-es-http.elasticsearch.es.local'
+    - 'elasticsearch-es-http'
+    - 'elasticsearch-es-http.elasticsearch.svc'
+    - 'elasticsearch-es-http.elasticsearch'
+    - 'elasticsearch-es-internal-http.elasticsearch.svc'
+    - 'elasticsearch-es-internal-http.elasticsearch'
+    - '*.elasticsearch-es-default.elasticsearch.svc'
+  issuerRef:
+    name: ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: quickstart
+  name: elasticsearch
   namespace: elastic-stack
 spec:
   version: 9.2.1
@@ -24,13 +58,13 @@ spec:
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
-  name: quickstart
+  name: kibana
   namespace: elastic-stack
 spec:
   version: 9.2.1
   count: 1
   elasticsearchRef:
-    name: quickstart
+    name: elasticsearch
   podTemplate:
     metadata:
       labels:
@@ -47,15 +81,15 @@ spec:
 apiVersion: apm.k8s.elastic.co/v1
 kind: ApmServer
 metadata:
-  name: apm-server-quickstart
+  name: apm-server
   namespace: elastic-stack
 spec:
   version: 9.2.1
   count: 1
   elasticsearchRef:
-    name: quickstart
+    name: elasticsearch
   kibanaRef: 
-    name: quickstart
+    name: kibana
   podTemplate:
     spec: 
       containers:
@@ -65,4 +99,4 @@ spec:
               valueFrom:
                 secretKeyRef: 
                   key: elastic
-                  name: quickstart-es-elastic-user
+                  name: elasticsearch-es-elastic-user

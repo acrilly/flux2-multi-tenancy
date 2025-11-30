@@ -54,6 +54,10 @@ spec:
       metadata:
         labels:
           scrape: es
+  http:
+    tls:
+      certificate:
+        secretName: elastic-tls-secret
 ---
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana

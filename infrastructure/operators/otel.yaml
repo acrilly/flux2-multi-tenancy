@@ -52,17 +52,14 @@ spec:
           exporters:
             elasticsearch/otel:
               tls:
-                ca_file: "/etc/ssl/certs/ca-trust-bundle.pem"
+                ca_file: "/ca-trust-bundle.pem"
                 insecure_skip_verify: false
         extraVolumes:
-          - name: ca-certificate-only
+          - name: ca-trust-bundle
             configMap:
-              name: trust-bundle
-              items:
-                - key: ca-trust-bundle.pem
-                  path: ca-trust-bundle.pem
+              name: trust-bundle-config
         extraVolumeMounts:
-          - name: ca-certificate-only
-            mountPath: /etc/ssl/certs/ca-trust-bundle.pem
+          - name: ca-trust-bundle
+            mountPath: /ca-trust-bundle.pem
             subPath: ca-trust-bundle.pem
             readOnly: true

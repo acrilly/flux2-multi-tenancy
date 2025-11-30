@@ -3,6 +3,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: opentelemetry-operator-system
+  labels:
+    trust: enabled
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository

@@ -20,8 +20,8 @@ metadata:
   namespace: opentelemetry-operator-system
 type: generic
 stringData:
-  elastic_endpoint: 'https://quickstart-es-http.elastic-stack.svc:9200' 
-  elastic_api_key: 'T2lEUDBKb0JqMkRvV2NTLUZUam86RWFfQkd2b1pXdTZOcVFCMy1kX3k0QQ==' # base64 encoded 'elastic:changeme'
+  elastic_endpoint: 'https://elasticsearch-es-http.elastic-stack.svc:9200' 
+  elastic_api_key: 'Q1dxeTFKb0IwUjhPc2pUc1kzWFU6NDk0T0g0Vko5MUJvN0hMMndFd0ZMZw==' # base64 encoded 'elastic:changeme'
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

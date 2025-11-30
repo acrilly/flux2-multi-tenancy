@@ -52,4 +52,5 @@ spec:
   install:
     crds: CreateReplace
   values:
-    installCRDs: true
+    crds:
+      enable: true

@@ -51,6 +51,3 @@ spec:
   interval: 5m
   install:
     crds: CreateReplace
-  values:
-    crds:
-      enable: true

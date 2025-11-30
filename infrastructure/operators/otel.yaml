@@ -43,7 +43,7 @@ spec:
     name: otel-values
     valuesKey: values.yaml
   values:
-    clusterName: flux2-multi-tenancy-cluster
+    clusterName: flux2-multi-tenancy
     collectors:
       gateway:
         config:

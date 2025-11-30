@@ -53,7 +53,7 @@ spec:
             elasticsearch/otel:
               # Enable in order to skip the SSL certificate Check
               tls:
-                # ca_file: "/etc/ssl/certs/elasticsearch-ca.crt"
+                ca_file: "/etc/ssl/certs/ca-trust-bundle.pem"
                 insecure_skip_verify: false
         # To use our trusted CAs we will mount them to the application in a default location
         # that most applications expect to find a ca-certificates.crt file. 

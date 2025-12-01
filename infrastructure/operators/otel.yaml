@@ -51,3 +51,4 @@ spec:
             elasticsearch/otel:
               tls:
                 insecure: false
+                insecure_skip_verify: true

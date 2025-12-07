@@ -1,11 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - cnpg.yaml
+  # cnpg.yaml
   - eck.yaml
   - otel.yaml
   #- vault.yaml
-  #- minio.yaml
+  - minio.yaml
+  - mariadb.yaml
   #- strimzi.yaml
 configMapGenerator:
   - name: otel-values

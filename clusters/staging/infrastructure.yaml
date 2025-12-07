@@ -117,20 +117,24 @@ spec:
   prune: true
 ---
 # Deploy CloudNativePG Cluster
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cnpg-cluster
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: infra-operators
-    - name: infra-tools
-    - name: core
-  interval: 10m0s
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./infrastructure/cnpg
-  prune: true
+#apiVersion: kustomize.toolkit.fluxcd.io/v1
+#kind: Kustomization
+#metadata:
+#  name: cnpg-cluster
+#  namespace: flux-system
+#spec:
+#  dependsOn:
+#    - name: infra-operators
+#    - name: infra-tools
+#    - name: core
+#  interval: 10m0s
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./infrastructure/cnpg
+#  prune: true
+---
+# Deploy MinIO Tenant
+---
+# Deploy MariaDB Clusters

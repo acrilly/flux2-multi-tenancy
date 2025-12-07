@@ -6,10 +6,9 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mariadb-secrets
+  name: mariadb
   namespace: mariadb
-  labels:
-    k8s.mariadb.com/watch:
+type: generic
 stringData:
   MARIADB_PASSWORD: secret
   MARIADB_ROOT_PASSWORD: verysecret
@@ -21,7 +20,7 @@ metadata:
   namespace: mariadb
 spec:
   rootPasswordSecretKeyRef:
-    name: mariadb-secrets
+    name: mariadb
     key: MARIADB_ROOT_PASSWORD
   storage:
     size: 1Gi

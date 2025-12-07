@@ -18,9 +18,6 @@ metadata:
   name: wordpress-mariadb
   namespace: mariadb
 spec:
-  # Basic cluster settings
-  replicas: 1
-
   # Resource requests and limits
   resources:
     requests:

@@ -10,7 +10,7 @@ metadata:
   name: mariadb-operator
 spec:
   interval: 5m
-  url: https://mariadb-operator.github.io/mariadb-operator
+  url: https://helm.mariadb.com/mariadb-operator
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

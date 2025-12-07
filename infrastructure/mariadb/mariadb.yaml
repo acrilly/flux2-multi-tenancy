@@ -3,16 +3,6 @@ kind: Namespace
 metadata:
   name: mariadb
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mariadb
-  namespace: mariadb
-type: generic
-stringData:
-  MARIADB_PASSWORD: secret
-  MARIADB_ROOT_PASSWORD: verysecret
----
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:

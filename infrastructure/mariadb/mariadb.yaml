@@ -3,11 +3,64 @@ kind: Namespace
 metadata:
   name: mariadb
 ---
-apiVersion: k8s.mariadb.com/v1alpha1
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mariadb-secrets
+  namespace: mariadb
+type: Opaque
+stringData:
+  MARIADB_ROOT_PASSWORD: supersecurepassword
+---
+apiVersion: mariadb.mmontes.io/v1alpha1
 kind: MariaDB
 metadata:
   name: wordpress-mariadb
   namespace: mariadb
 spec:
+  # Basic cluster settings
+  replicas: 1
+  image:
+    repository: mariadb
+    tag: "11.4.2"   # pin to a stable community version
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+  # Root password reference (immutable, must be stable)
+  rootPasswordSecretKeyRef:
+    name: mariadb-secrets
+    key: MARIADB_ROOT_PASSWORD
+
+  # Storage
   storage:
     size: 1Gi
+    className: standard   # adjust to your cluster’s StorageClass
+
+  # Service exposure
+  service:
+    type: ClusterIP
+    ports:
+      - name: mysql
+        port: 3306
+        targetPort: 3306
+
+  # Optional probes (only those supported by CRD schema)
+  livenessProbe:
+    exec:
+      command:
+        - mysqladmin
+        - ping
+    initialDelaySeconds: 30
+    periodSeconds: 10
+  readinessProbe:
+    exec:
+      command:
+        - mysqladmin
+        - ping
+    initialDelaySeconds: 5
+    periodSeconds: 10

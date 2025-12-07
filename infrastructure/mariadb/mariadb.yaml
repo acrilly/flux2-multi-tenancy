@@ -3,7 +3,6 @@ kind: Namespace
 metadata:
   name: mariadb
 ---
----
 apiVersion: bitnami.com/v1alpha1
 kind: SealedSecret
 metadata:
@@ -50,14 +49,3 @@ spec:
       memory: 128Mi
     limits:
       memory: 256Mi
-
-  livenessProbe:
-    periodSeconds: 10
-    timeoutSeconds: 10
-
-  readinessProbe:
-    periodSeconds: 10
-    timeoutSeconds: 10
-
-  metrics:
-    enabled: true

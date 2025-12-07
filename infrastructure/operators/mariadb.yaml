@@ -23,7 +23,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
-      version: "0.28.1"
+      version: "25.10.2"
   interval: 1h0m0s
   install:
     createNamespace: true

@@ -9,8 +9,5 @@ metadata:
   name: wordpress-mariadb
   namespace: mariadb
 spec:
-  rootPasswordSecretKeyRef:
-    name: mariadb
-    key: MARIADB_ROOT_PASSWORD
   storage:
     size: 1Gi

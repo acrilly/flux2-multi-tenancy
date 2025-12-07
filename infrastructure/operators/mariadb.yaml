@@ -25,14 +25,9 @@ spec:
         name: mariadb-operator
       version: "25.10.2"
   interval: 1h0m0s
-  install:
-    createNamespace: true
-    crds: Create
-  upgrade:
-    remediation:
-      retries: 3
-    crds: CreateReplace
   values:
+    crds:
+      enabled: true
     metrics:
       enabled: true
       serviceMonitor:

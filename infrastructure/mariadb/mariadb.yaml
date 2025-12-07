@@ -36,7 +36,13 @@ spec:
   storage:
     size: 1Gi
 
+  # Number of replicas
   replicas: 1
+
+  # Replication settings
+  replication:
+    syncBinlog: false
+
 
   # Service exposure
   service:

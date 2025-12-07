@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   name: mariadb-operator
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: mariadb-operator
@@ -17,13 +17,13 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: mariadb-operator-crds
-  namespace: flux-system   # keep CRDs managed in flux-system
+  namespace: flux-system
 spec:
   releaseName: mariadb-operator-crds
   chart:
     spec:
       chart: mariadb-operator-crds
-      version: "0.34.0"   # pin to the CRDs chart version
+      version: "0.38.0"   # pin to latest
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
@@ -43,7 +43,7 @@ spec:
   chart:
     spec:
       chart: mariadb-operator
-      version: "0.34.0"   # pin to the CRDs chart version
+      version: "0.38.0"   # pin to the CRDs chart version
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator

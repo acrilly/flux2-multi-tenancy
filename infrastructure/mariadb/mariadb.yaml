@@ -12,7 +12,7 @@ type: Opaque
 stringData:
   MARIADB_ROOT_PASSWORD: supersecurepassword
 ---
-apiVersion: mariadb.mmontes.io/v1alpha1
+apiVersion: k8s.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:
   name: wordpress-mariadb

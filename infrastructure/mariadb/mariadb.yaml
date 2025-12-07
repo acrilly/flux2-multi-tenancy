@@ -41,7 +41,7 @@ spec:
 
   # Replication settings
   replication:
-    syncBinlog: false
+    syncBinlog: 1
 
 
   # Service exposure

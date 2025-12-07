@@ -20,9 +20,8 @@ metadata:
 spec:
   # Basic cluster settings
   replicas: 1
-  image:
-    repository: mariadb
-    tag: "11.4.2"   # pin to a stable community version
+
+  # Resource requests and limits
   resources:
     requests:
       cpu: 100m
@@ -39,15 +38,10 @@ spec:
   # Storage
   storage:
     size: 1Gi
-    className: standard   # adjust to your cluster’s StorageClass
 
   # Service exposure
   service:
     type: ClusterIP
-    ports:
-      - name: mysql
-        port: 3306
-        targetPort: 3306
 
   # Optional probes (only those supported by CRD schema)
   livenessProbe:

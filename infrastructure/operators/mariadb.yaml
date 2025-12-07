@@ -23,7 +23,7 @@ spec:
   chart:
     spec:
       chart: mariadb-operator-crds
-      version: "0.38.0"   # pin to latest
+      version: "25.10.2"   # pin to latest
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
@@ -43,7 +43,7 @@ spec:
   chart:
     spec:
       chart: mariadb-operator
-      version: "0.38.0"   # pin to the CRDs chart version
+      version: "25.10.2"   # pin to the CRDs chart version
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator

@@ -8,27 +8,33 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
   name: mariadb-operator
-  namespace: mariadb-operator
+  namespace: flux-system
 spec:
-  interval: 24h
-  url: https://helm.mariadb.com/mariadb-operator
+  interval: 1h
+  url: https://mariadb-operator.github.io/mariadb-operator
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: mariadb-operator-crds
   namespace: mariadb-operator
 spec:
-  interval: 24h
+  interval: 10m
+  releaseName: mariadb-operator-crds
   chart:
     spec:
       chart: mariadb-operator-crds
-      version: '^0.37.1'
+      version: "25.10.2" # CalVer Year.Month.Patch
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
-        namespace: mariadb-operator
-      interval: 24h
+        namespace: flux-system
+  install:
+    createNamespace: true
+  upgrade:
+    remediation:
+      retries: 3
+  values: {}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -36,13 +42,20 @@ metadata:
   name: mariadb-operator
   namespace: mariadb-operator
 spec:
-  interval: 24h
+  interval: 10m
+  releaseName: mariadb-operator
+  dependsOn:
+    - name: mariadb-operator-crds
+      namespace: mariadb-operator
   chart:
     spec:
       chart: mariadb-operator
-      version: '^0.37.1'
+      version: "25.10.2" # CalVer Year.Month.Patch
       sourceRef:
         kind: HelmRepository
         name: mariadb-operator
-        namespace: mariadb-operator
-      interval: 24h
+        namespace: flux-system
+  upgrade:
+    remediation:
+      retries: 3
+  values: {}

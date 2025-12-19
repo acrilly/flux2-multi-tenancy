@@ -6,7 +6,7 @@ resources:
   #- eck.yaml
   #- otel.yaml
   #- minio.yaml
-  #- mariadb.yaml
+  - mariadb.yaml
   #- strimzi.yaml
 #configMapGenerator:
 #  - name: otel-values

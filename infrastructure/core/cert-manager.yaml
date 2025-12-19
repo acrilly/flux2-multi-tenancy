@@ -49,51 +49,51 @@ spec:
         name: jetstack
         namespace: cert-manager
   interval: 5m
----
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: selfsigned-cluster-issuer
-  namespace: cert-manager
-spec:
-  selfSigned: {}
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: root-ca
-  namespace: cert-manager
-spec:
-  isCA: true
-  commonName: "Root CA"
-  secretName: root-ca
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-  issuerRef:
-    name: selfsigned-cluster-issuer
-    kind: ClusterIssuer
-    group: cert-manager.io
----
-apiVersion: trust.cert-manager.io/v1alpha1
-kind: Bundle
-metadata:
-  name: trust-bundle
-  namespace: cert-manager
-spec:
-  sources:
-    - secret:
-        name: "root-ca"
-        key: "tls.crt"
-  target:
-    configMap:
-      key: "ca-trust-bundle.pem"
----
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: ca-issuer
-  namespace: cert-manager
-spec:
-  ca:
-    secretName: root-ca
+#---
+#apiVersion: cert-manager.io/v1
+#kind: ClusterIssuer
+#metadata:
+#  name: selfsigned-cluster-issuer
+#  namespace: cert-manager
+#spec:
+#  selfSigned: {}
+#---
+#apiVersion: cert-manager.io/v1
+#kind: Certificate
+#metadata:
+#  name: root-ca
+#  namespace: cert-manager
+#spec:
+#  isCA: true
+#  commonName: "Root CA"
+#  secretName: root-ca
+#  privateKey:
+#    algorithm: ECDSA
+#    size: 256
+#  issuerRef:
+#    name: selfsigned-cluster-issuer
+#    kind: ClusterIssuer
+#    group: cert-manager.io
+#---
+#apiVersion: trust.cert-manager.io/v1alpha1
+#kind: Bundle
+#metadata:
+#  name: trust-bundle
+#  namespace: cert-manager
+#spec:
+#  sources:
+#    - secret:
+#        name: "root-ca"
+#        key: "tls.crt"
+#  target:
+#    configMap:
+#      key: "ca-trust-bundle.pem"
+#---
+#apiVersion: cert-manager.io/v1
+#kind: ClusterIssuer
+#metadata:
+#  name: ca-issuer
+#  namespace: cert-manager
+#spec:
+#  ca:
+#    secretName: root-ca

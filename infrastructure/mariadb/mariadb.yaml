@@ -10,39 +10,10 @@ metadata:
   name: mariadb-basic
   namespace: mariadb
 spec:
-  # Basic single‑node instance
   replicas: 1
-
-  # Minimal container image
   image:
     repository: mariadb
     tag: "11.4"
+  storage:
+    size: 5Gi
 
-  # No secrets → use empty root password (allowed for dev/test)
-  rootPasswordSecretKeyRef: {}
-
-  # Basic storage
-  volumeClaimTemplate:
-    accessModes:
-      - ReadWriteOnce
-    resources:
-      requests:
-        storage: 5Gi
-
-  # Basic service
-  service:
-    type: ClusterIP
-    port: 3306
-
-  # Health checks
-  readinessProbe:
-    exec:
-      command: ["mysqladmin", "ping"]
-    initialDelaySeconds: 5
-    periodSeconds: 10
-
-  livenessProbe:
-    exec:
-      command: ["mysqladmin", "ping"]
-    initialDelaySeconds: 10
-    periodSeconds: 10

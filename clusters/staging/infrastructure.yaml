@@ -100,21 +100,21 @@ spec:
         name: ww-gitops
 ---
 # Deploy Elastic Stack
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: elastic-cluster
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: infra-operators
-  interval: 10m0s
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./infrastructure/elastic
-  prune: true
+#apiVersion: kustomize.toolkit.fluxcd.io/v1
+#kind: Kustomization
+#metadata:
+#  name: elastic-cluster
+#  namespace: flux-system
+#spec:
+#  dependsOn:
+#    - name: infra-operators
+#  interval: 10m0s
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./infrastructure/elastic
+#  prune: true
 ---
 # Deploy CloudNativePG Cluster
 #apiVersion: kustomize.toolkit.fluxcd.io/v1

@@ -3,15 +3,15 @@ kind: Kustomization
 resources:
   - vso.yaml
   #- cnpg.yaml
-  - eck.yaml
-  - otel.yaml
+  #- eck.yaml
+  #- otel.yaml
   #- minio.yaml
   #- mariadb.yaml
   #- strimzi.yaml
-configMapGenerator:
-  - name: otel-values
-    namespace: opentelemetry-operator-system  
-    files:
-      - values.yaml
-generatorOptions:
-  disableNameSuffixHash: true
+#configMapGenerator:
+#  - name: otel-values
+#    namespace: opentelemetry-operator-system  
+#    files:
+#      - values.yaml
+#generatorOptions:
+#  disableNameSuffixHash: true

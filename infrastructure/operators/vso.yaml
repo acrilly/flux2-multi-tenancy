@@ -148,6 +148,7 @@ spec:
     serviceAccount: vault-sa
     audiences:
       - vault
+      - K3s
 
   # Allow VSO to authenticate from the mariadb namespace
   allowedNamespaces:

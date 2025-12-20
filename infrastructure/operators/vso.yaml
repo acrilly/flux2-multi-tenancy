@@ -110,10 +110,22 @@ roleRef:
   kind: ClusterRole
   name: system:auth-delegator
   apiGroup: rbac.authorization.k8s.io
+---
 # Note:
 # You do NOT need to create a ServiceAccount token Secret manually anymore.
 # Kubernetes will automatically create the token Secret for the ServiceAccount 
 # if the ServiceAccount is referenced by a Vault Kubernetes auth method.
+# IMPORTANT:
+# Even though Kubernetes 1.24+ normally does not require this,
+# SUSE K3s still requires a token Secret for external TokenRequest consumers like VSO
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-sa-token
+  namespace: vso
+  annotations:
+    kubernetes.io/service-account.name: vault-sa
+type: kubernetes.io/service-account-token
 ---
 # VaultAuth (Kubernetes method)
 # This tells VSO:

@@ -74,20 +74,23 @@ spec:
     defaultVaultConnection:
       # toggles the deployment of the VaultAuthMethod CR
 
-      enabled: true
-
-      # Address of the Vault Server
-      # Example: http://vault.default.svc.cluster.local:8200
-      address: "https://vault.leclub.org.uk"
-
-      # SkipTLSVerify for TLS connections.
-
-      skipTLSVerify: true
+      enabled: false # we will create our own VaultAuth below
 ---
-# Vault’s Kubernetes auth method requires:
-# A ServiceAccount
-# A ClusterRoleBinding granting system:auth-delegator
-# A Vault role that trusts that ServiceAccount
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  name: vault-conn
+  namespace: vso
+spec:
+  address: https://vault.leclub.org.uk # Address of the Vault Server
+  tls:
+    insecureSkipVerify: true
+---
+# Vault’s Kubernetes auth method requires: 
+#     a ServiceAccount
+#     a ClusterRoleBinding granting system:auth-delegator
+#     a Vault role that trusts that ServiceAccount
+#
 # Create a service account for Vault
 apiVersion: v1
 kind: ServiceAccount
@@ -141,16 +144,13 @@ spec:
   method: kubernetes
   mount: kubernetes
 
-  vaultConnectionRef: default
+  vaultConnectionRef: vault-conn
 
   kubernetes:
     role: vso-role
     serviceAccount: vault-sa
-    audiences:
-      - vault
-      - K3s
 
   # Allow VSO to authenticate from the mariadb namespace
   allowedNamespaces:
-    - mariadb
+    - "*"
 

@@ -44,11 +44,11 @@ spec:
   mount: kv # Vault mount name, e.g. "kv"
   path: mariadb/admin   # Vault path: kv/mariadb/app-user
 
+  vaultConnectionRef: vso/vault-conn
   vaultAuthRef: vso/vault-auth
 
   destination:
     name: mariadb-admin # K8s Secret name
-
     create: true
 
   refreshAfter: 1h

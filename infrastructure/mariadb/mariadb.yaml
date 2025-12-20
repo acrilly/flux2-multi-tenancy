@@ -22,6 +22,17 @@ spec:
   storage:
     size: 5Gi
 ---
+# There is an open VSO issue where cross‑namespace VaultStaticSecret can still fail
+# with ServiceAccount not found even when allowedNamespaces: ["*"] is set,
+# effectively requiring a ServiceAccount of the same name in each target namespace
+# Hence the SA below
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vault-sa
+  namespace: mariadb
+automountServiceAccountToken: true
+---
 # vaultstaticsecret-app-user
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret

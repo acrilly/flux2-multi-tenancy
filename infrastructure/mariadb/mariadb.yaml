@@ -33,9 +33,7 @@ spec:
   mount: kv # Vault mount name, e.g. "kv"
   path: mariadb/admin   # Vault path: kv/mariadb/app-user
 
-  vaultAuthRef:             # Use the VaultAuth you defined
-    name: vault-auth
-    namespace: vso
+  vaultAuthRef: vso/vault-auth
 
   destination:
     name: mariadb-admin # K8s Secret name

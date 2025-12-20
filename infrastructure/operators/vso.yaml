@@ -94,6 +94,8 @@ kind: ServiceAccount
 metadata:
   name: vault-sa
   namespace: vso
+# explicitly enable token mounting
+automountServiceAccountToken: true
 ---
 # Create a ClusterRoleBinding for the service account granting system:auth-delegator
 apiVersion: rbac.authorization.k8s.io/v1

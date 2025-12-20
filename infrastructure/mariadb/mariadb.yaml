@@ -58,12 +58,7 @@ spec:
     name: mariadb-admin
     key: password
 
-  # Optional: grant privileges (depends on operator version)
-  permissions:
-    - database: "*"
-      table: "*"
-      privileges:
-        - ALL PRIVILEGES
+  host: "%"
 ---
 # mariadb-database
 apiVersion: k8s.mariadb.com/v1alpha1

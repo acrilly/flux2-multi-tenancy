@@ -83,8 +83,14 @@ metadata:
   namespace: vso
 spec:
   address: https://vault.leclub.org.uk # Address of the Vault Server
-  tls:
-    insecureSkipVerify: true
+  
+  # replaces .spec.tls.insecureSkipVerify
+  skipTLSVerify: true
+
+  # If you want to use a CA instead of skipTLSVerify:
+  # caCertSecretRef:
+  #   name: vault-ca
+  #   key: ca.crt
 ---
 # Vault’s Kubernetes auth method requires: 
 #     a ServiceAccount

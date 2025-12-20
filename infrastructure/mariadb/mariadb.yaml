@@ -1,20 +1,76 @@
 ---
+# mariadb namespace
 apiVersion: v1
 kind: Namespace
 metadata:
   name: mariadb
 ---
+# mariadb-instance
 apiVersion: k8s.mariadb.com/v1alpha1
 kind: MariaDB
 metadata:
-  name: mariadb-basic
+  name: mariadb-instance
   namespace: mariadb
 spec:
   replicas: 1
 
   # Enterprise operator requires a single string
+  # https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/docker.md
   image: mariadb:11.8.2
 
   # Enterprise operator uses "storage" not volumeClaimTemplate
   storage:
     size: 5Gi
+---
+# vaultstaticsecret-app-user
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
+metadata:
+  name: mariadb-admin
+  namespace: mariadb
+spec:
+  type: kv-v2
+  mount: kv # Vault mount name, e.g. "kv"
+  path: mariadb/admin   # Vault path: kv/mariadb/app-user
+
+  vaultAuthRef:             # Use the VaultAuth you defined
+    name: vault-auth
+    namespace: vso
+
+  destination:
+    name: mariadb-admin # K8s Secret name
+
+    create: true
+
+  refreshAfter: 1h
+---
+# mariadb-user
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
+metadata:
+  name: admin-user
+  namespace: mariadb
+spec:
+  mariaDbRef:
+    name: mariadb-instance
+
+  passwordSecretKeyRef:
+    name: mariadb-admin
+    key: password
+
+  # Optional: grant privileges (depends on operator version)
+  permissions:
+    - database: "*"
+      table: "*"
+      privileges:
+        - ALL PRIVILEGES
+---
+# mariadb-database
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: wordpress-db
+  namespace: mariadb
+spec:
+  mariaDbRef:
+    name: mariadb-instance

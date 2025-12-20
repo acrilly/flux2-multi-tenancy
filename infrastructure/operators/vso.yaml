@@ -150,12 +150,11 @@ spec:
   method: kubernetes
   mount: kubernetes
 
-  methodConfig:
-    kubernetes:
-      role: vso-role
-      serviceAccount: vault-sa
-
   vaultConnectionRef: vault-conn
+
+  kubernetes:
+    role: vso-role
+    serviceAccount: vault-sa
 
   allowedNamespaces:
     - "*"

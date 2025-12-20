@@ -155,6 +155,10 @@ spec:
   kubernetes:
     role: vso-role
     serviceAccount: vault-sa
+    audiences:
+      - k3s
+      - vault
+      - https://kubernetes.default.svc.cluster.local
 
   allowedNamespaces:
     - "*"

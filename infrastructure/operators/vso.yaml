@@ -97,7 +97,7 @@ spec:
 #     a ClusterRoleBinding granting system:auth-delegator
 #     a Vault role that trusts that ServiceAccount
 #
-# Create a service account for Vault
+# Service account for Vault Kubernetres Auth method
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -120,13 +120,7 @@ roleRef:
   name: system:auth-delegator
   apiGroup: rbac.authorization.k8s.io
 ---
-# Note:
-# You do NOT need to create a ServiceAccount token Secret manually anymore.
-# Kubernetes will automatically create the token Secret for the ServiceAccount 
-# if the ServiceAccount is referenced by a Vault Kubernetes auth method.
-# IMPORTANT:
-# Even though Kubernetes 1.24+ normally does not require this,
-# SUSE K3s still requires a token Secret for external TokenRequest consumers like VSO
+# Long-lived SA token Secret (needed for Vault Kubernetes Auth)
 apiVersion: v1
 kind: Secret
 metadata:
@@ -136,6 +130,25 @@ metadata:
     kubernetes.io/service-account.name: vault-sa
 type: kubernetes.io/service-account-token
 ---
+# VSO -> Vault connection
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultConnection
+metadata:
+  name: vault-conn
+  namespace: vso
+spec:
+  address: https://vault.leclub.org.uk
+  # For lab; in prod, use a real CA
+  skipTLSVerify: true
+  # If using a custom CA instead:
+  # caCertSecretRef:
+  #   name: vault-ca
+  #   key: ca.crt
+---
+# VaultAuth using Kubernetes Auth Method
+# Assumes:
+#   - auth/demo-auth-mount configured
+#   - role vso-role created there
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
@@ -143,15 +156,14 @@ metadata:
   namespace: vso
 spec:
   method: kubernetes
-  mount: demo-auth-mount        # your dedicated Kubernetes auth mount in Vault
-
+  mount: demo-auth-mount
   vaultConnectionRef: vault-conn
 
   kubernetes:
-    role: vso-role       # Vault role under auth/vso-auth/role/vso-role
+    role: vso-role
     serviceAccount: vault-sa
     audiences:
-      - vault            # ensures VSO requests a token Vault accepts
+      - vault
 
   allowedNamespaces:
-    - "*"                # allow cross-namespace secret sync
+    - "*"    # allow VSO to serve requests from any namespace

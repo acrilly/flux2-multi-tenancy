@@ -22,24 +22,27 @@ spec:
   storage:
     size: 5Gi
 ---
-# vaultstaticsecret-app-user
+# VaultStaticSecret that pulls mariadb-admin/root credentials from Vault
+# Assumes:
+#   - Vault KV v2 mount: kvv2
+#   - Path: kvv2/mariadb/admin
+#   - Data key: mariadb-root-password
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultStaticSecret
 metadata:
   name: mariadb-admin
   namespace: mariadb
 spec:
-  type: kv-v2
-  mount: kvv2 # Vault mount name, e.g. "kv"
-  path: mariadb/admin   # Vault path: kv/mariadb/app-user
-
-  destination:
-    name: mariadb-admin # K8s Secret name
-    create: true
-
-  refreshAfter: 5m
-
   vaultAuthRef: vso/static-auth
+  mount: kvv2
+  path: mariadb/admin
+  type: kv-v2
+  refreshAfter: 1h
+  hmacSecretData: true
+  destination:
+    name: mariadb-admin
+    create: true
+    overwrite: true
 ---
 # mariadb-user
 apiVersion: k8s.mariadb.com/v1alpha1

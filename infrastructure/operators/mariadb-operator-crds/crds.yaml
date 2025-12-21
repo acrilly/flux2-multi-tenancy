@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mariadb-operator-crds
+  namespace: mariadb-operator
+spec:
+  interval: 10m
+  releaseName: mariadb-operator-crds
+  chart:
+    spec:
+      chart: mariadb-operator-crds
+      version: "25.10.2" # CalVer Year.Month.Patch
+      sourceRef:
+        kind: HelmRepository
+        name: mariadb-operator
+        namespace: flux-system
+  install:
+    createNamespace: true
+  upgrade:
+    remediation:
+      retries: 3
+  values: {}

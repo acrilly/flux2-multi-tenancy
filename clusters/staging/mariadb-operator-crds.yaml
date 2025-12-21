@@ -1,0 +1,15 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: mariadb-operator-crds
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./infrastructure/operators/mariadb-operator-crds
+  prune: true
+  dependsOn:
+    - name: mariadb-operator-namespace
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 2m

@@ -145,8 +145,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-#    - name: infra-operators
-#    - name: infra-tools
+    - name: vso-operator
+    - name: mariadb-operator
     - name: vso-auth
   interval: 10m0s
   sourceRef:

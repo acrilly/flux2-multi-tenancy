@@ -3,9 +3,6 @@ kind: Kustomization
 
 namespace: vso
 
-dependsOn:
-  - name: vso-operator
-
 resources:
   - vaultconnection.yaml
   - vaultauth.yaml

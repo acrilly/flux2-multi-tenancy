@@ -3,9 +3,6 @@ kind: Kustomization
 
 namespace: vso
 
-dependsOn:
-  - name: vso-namespace
-
 resources:
   - helmrepo.yaml
   - crds.yaml

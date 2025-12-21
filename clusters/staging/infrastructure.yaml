@@ -52,25 +52,25 @@
 #  prune: true
 #---
 # Deploy infrastructure operators
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: infra-operators # change here
-  namespace: flux-system
-spec:
+#apiVersion: kustomize.toolkit.fluxcd.io/v1
+#kind: Kustomization
+#metadata:
+#  name: infra-operators # change here
+#  namespace: flux-system
+#spec:
 #  dependsOn:
 #    - name: core
-  interval: 1h
-  retryInterval: 5m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./infrastructure/operators # and here
-  prune: true
-  wait: true
----
+#  interval: 1h
+#  retryInterval: 5m
+#  timeout: 5m
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./infrastructure/operators # and here
+#  prune: true
+#  wait: true
+#---
 # Deploy infrastructure tools
 #apiVersion: kustomize.toolkit.fluxcd.io/v1
 #kind: Kustomization
@@ -145,9 +145,9 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: infra-operators
-    - name: infra-tools
-    - name: core
+#    - name: infra-operators
+#    - name: infra-tools
+    - name: vso-auth
   interval: 10m0s
   sourceRef:
     kind: GitRepository

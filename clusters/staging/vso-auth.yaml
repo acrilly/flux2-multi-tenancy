@@ -1,0 +1,15 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: vso-auth
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./infrastructure/operators/vso-auth
+  prune: true
+  dependsOn:
+    - name: vso-operator
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 2m

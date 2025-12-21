@@ -15,7 +15,7 @@ spec:
       version: "25.10.2" # CalVer Year.Month.Patch
       sourceRef:
         kind: HelmRepository
-        name: mariadb-operator
+        name: mariadb-operator-repo
         namespace: flux-system
   upgrade:
     remediation:

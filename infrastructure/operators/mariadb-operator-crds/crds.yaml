@@ -4,6 +4,10 @@ metadata:
   name: mariadb-operator-crds
   namespace: mariadb-operator
 spec:
+  healthChecks:
+    - kind: HelmRepository
+      name: mariadb-operator-repo
+      namespace: flux-system
   interval: 10m
   chart:
     spec:
@@ -11,7 +15,7 @@ spec:
       version: "25.10.2"
       sourceRef:
         kind: HelmRepository
-        name: mariadb-operator
+        name: mariadb-operator-repo
         namespace: flux-system
   install:
     crds: Create

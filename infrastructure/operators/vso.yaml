@@ -76,22 +76,6 @@ spec:
 
       enabled: false # we will create our own VaultAuth below
 ---
-apiVersion: secrets.hashicorp.com/v1beta1
-kind: VaultConnection
-metadata:
-  name: vault-conn
-  namespace: vso
-spec:
-  address: https://vault.leclub.org.uk # Address of the Vault Server
-  
-  # replaces .spec.tls.insecureSkipVerify
-  skipTLSVerify: true
-
-  # If you want to use a CA instead of skipTLSVerify:
-  # caCertSecretRef:
-  #   name: vault-ca
-  #   key: ca.crt
----
 # Vault’s Kubernetes auth method requires: 
 #     a ServiceAccount
 #     a ClusterRoleBinding granting system:auth-delegator

@@ -72,33 +72,33 @@ spec:
   wait: true
 ---
 # Deploy infrastructure tools
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: infra-tools # change here
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: core
-  interval: 1h
-  retryInterval: 5m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./infrastructure/tools # and here
-  prune: true
-  wait: true
-  patches:
-    - patch: |
-        - op: replace
-          path: /spec/values/ingress/hosts/0/host
-          value: "dashboard.leclub.org.uk"
-      target:
-        kind: HelmRelease
-        name: ww-gitops
----
+#apiVersion: kustomize.toolkit.fluxcd.io/v1
+#kind: Kustomization
+#metadata:
+#  name: infra-tools # change here
+#  namespace: flux-system
+#spec:
+#  dependsOn:
+#    - name: core
+#  interval: 1h
+#  retryInterval: 5m
+#  timeout: 5m
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./infrastructure/tools # and here
+#  prune: true
+#  wait: true
+#  patches:
+#    - patch: |
+#        - op: replace
+#          path: /spec/values/ingress/hosts/0/host
+#          value: "dashboard.leclub.org.uk"
+#      target:
+#        kind: HelmRelease
+#        name: ww-gitops
+#---
 # Deploy Elastic Stack
 #apiVersion: kustomize.toolkit.fluxcd.io/v1
 #kind: Kustomization

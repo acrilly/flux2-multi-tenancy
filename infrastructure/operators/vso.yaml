@@ -4,7 +4,7 @@ kind: Namespace
 metadata:
   name: vso
 ---
-# vault-helm-repo.yaml
+# HashiCorp Helm repo (VSO)
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
@@ -14,12 +14,17 @@ spec:
   interval: 1h
   url: https://helm.releases.hashicorp.com
 ---
-# Splitting CRDs into their own HelmRelease is the upgrade‑safe pattern
-# It ensures CRDs are installed once and managed independently of the operator/app lifecycle, so uninstalling or upgrading the chart won’t accidentally remove or overwrite them.
-# Lifecycle safety: CRDs persist even if you uninstall the app release.
-# GitOps clarity: you can roll back or upgrade the app without risking CRD mismatches.
-# Note: There is only one chart (vault-secrets-operator) with CRDs are bundled inside it.
-# Split into separate HelmReleases for lifecycle safety.
+# Bitnami Helm repo (MariaDB)
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: bitnami
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://charts.bitnami.com/bitnami
+---
+# VSO CRDs (split for lifecycle safety)
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -30,7 +35,7 @@ spec:
   chart:
     spec:
       chart: vault-secrets-operator
-      version: 0.10.0   # adjust to desired version
+      version: 0.10.0
       sourceRef:
         kind: HelmRepository
         name: hashicorp
@@ -40,10 +45,9 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    # disable everything except CRDs
     enabled: false
 ---
-# vault-secrets-operator
+# VSO operator (no default VaultConnection, we'll define our own)
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -65,89 +69,5 @@ spec:
     crds: Skip
   values:
     replicaCount: 1
-    # Configures the default VaultConnection CR which will be used by resources
-    # if they do not specify a VaultConnection reference. The name is 'default' and will
-    # always be installed in the same namespace as the operator.
-    # NOTE:
-    # * It is strongly recommended to deploy the vault secrets operator in a secure Vault environment
-    #   which includes a configuration utilizing TLS and installing Vault into its own restricted namespace.
     defaultVaultConnection:
-      # toggles the deployment of the VaultAuthMethod CR
-
-      enabled: false # we will create our own VaultAuth below
----
-# Vault’s Kubernetes auth method requires: 
-#     a ServiceAccount
-#     a ClusterRoleBinding granting system:auth-delegator
-#     a Vault role that trusts that ServiceAccount
-#
-# Service account for Vault Kubernetres Auth method
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: vault-sa
-  namespace: vso
-# explicitly enable token mounting
-automountServiceAccountToken: true
----
-# Create a ClusterRoleBinding for the service account granting system:auth-delegator
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: vault-auth-binding
-subjects:
-  - kind: ServiceAccount
-    name: vault-sa
-    namespace: vso
-roleRef:
-  kind: ClusterRole
-  name: system:auth-delegator
-  apiGroup: rbac.authorization.k8s.io
----
-# Long-lived SA token Secret (needed for Vault Kubernetes Auth)
-apiVersion: v1
-kind: Secret
-metadata:
-  name: vault-sa-token
-  namespace: vso
-  annotations:
-    kubernetes.io/service-account.name: vault-sa
-type: kubernetes.io/service-account-token
----
-# VSO -> Vault connection
-apiVersion: secrets.hashicorp.com/v1beta1
-kind: VaultConnection
-metadata:
-  name: vault-conn
-  namespace: vso
-spec:
-  address: https://vault.leclub.org.uk
-  # For lab; in prod, use a real CA
-  skipTLSVerify: true
-  # If using a custom CA instead:
-  # caCertSecretRef:
-  #   name: vault-ca
-  #   key: ca.crt
----
-# VaultAuth using Kubernetes Auth Method
-# Assumes:
-#   - auth/demo-auth-mount configured
-#   - role vso-role created there
-apiVersion: secrets.hashicorp.com/v1beta1
-kind: VaultAuth
-metadata:
-  name: static-auth
-  namespace: vso
-spec:
-  method: kubernetes
-  mount: demo-auth-mount
-  vaultConnectionRef: vault-conn
-
-  kubernetes:
-    role: vso-role
-    serviceAccount: vault-sa
-    audiences:
-      - vault
-
-  allowedNamespaces:
-    - "*"    # allow VSO to serve requests from any namespace
+      enabled: false

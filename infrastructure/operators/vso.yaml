@@ -135,30 +135,3 @@ metadata:
   annotations:
     kubernetes.io/service-account.name: vault-sa
 type: kubernetes.io/service-account-token
----
-# VaultAuth (Kubernetes method)
-# This tells VSO:
-# which VaultConnection to use (default in this case)
-# to use the Kubernetes auth method
-# to authenticate as vault-sa with Vault role vso-role
-apiVersion: secrets.hashicorp.com/v1beta1
-kind: VaultAuth
-metadata:
-  name: vault-auth
-  namespace: vso
-spec:
-  method: kubernetes
-  mount: kubernetes
-
-  vaultConnectionRef: vault-conn
-
-  kubernetes:
-    role: vso-role
-    serviceAccount: vault-sa
-    audiences:
-      - k3s
-      - vault
-      - https://kubernetes.default.svc.cluster.local
-
-  allowedNamespaces:
-    - "*"

@@ -29,9 +29,23 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: vault-sa
+  name: mariadb-vault-sa
   namespace: mariadb
-automountServiceAccountToken: true
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: static-auth
+  namespace: mariadb
+spec:
+  method: kubernetes
+  mount: demo-auth-mount
+  kubernetes:
+    role: mariadb
+    serviceAccount: mariadb-vault-sa
+    audiences:
+      - vault
+  vaultConnectionRef: vso/vault-conn
 ---
 # vaultstaticsecret-app-user
 apiVersion: secrets.hashicorp.com/v1beta1
@@ -41,16 +55,16 @@ metadata:
   namespace: mariadb
 spec:
   type: kv-v2
-  mount: kv # Vault mount name, e.g. "kv"
+  mount: kvv2 # Vault mount name, e.g. "kv"
   path: mariadb/admin   # Vault path: kv/mariadb/app-user
-
-  vaultAuthRef: vso/vault-auth
 
   destination:
     name: mariadb-admin # K8s Secret name
     create: true
 
   refreshAfter: 1h
+
+  vaultAuthRef: vso/vault-auth
 ---
 # mariadb-user
 apiVersion: k8s.mariadb.com/v1alpha1

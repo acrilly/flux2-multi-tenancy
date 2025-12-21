@@ -39,7 +39,7 @@ spec:
 
   refreshAfter: 1h
 
-  vaultAuthRef: vaultAuthRef: vso/static-auth
+  vaultAuthRef: vso/static-auth
 ---
 # mariadb-user
 apiVersion: k8s.mariadb.com/v1alpha1

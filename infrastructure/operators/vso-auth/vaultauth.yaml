@@ -1,0 +1,18 @@
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: static-auth
+  namespace: vso
+spec:
+  method: kubernetes
+  mount: demo-auth-mount
+  vaultConnectionRef: vault-conn
+
+  kubernetes:
+    role: vso-role
+    serviceAccount: vault-sa
+    audiences:
+      - vault
+
+  allowedNamespaces:
+    - "*"

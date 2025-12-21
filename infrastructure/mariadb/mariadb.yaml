@@ -37,7 +37,7 @@ spec:
     name: mariadb-admin # K8s Secret name
     create: true
 
-  refreshAfter: 1h
+  refreshAfter: 5m
 
   vaultAuthRef: vso/static-auth
 ---

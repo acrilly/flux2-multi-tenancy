@@ -58,8 +58,8 @@ metadata:
   name: infra-operators # change here
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: core
+#  dependsOn:
+#    - name: core
   interval: 1h
   retryInterval: 5m
   timeout: 5m

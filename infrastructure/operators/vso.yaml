@@ -135,3 +135,23 @@ metadata:
   annotations:
     kubernetes.io/service-account.name: vault-sa
 type: kubernetes.io/service-account-token
+---
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: static-auth
+  namespace: vso
+spec:
+  method: kubernetes
+  mount: demo-auth-mount        # your dedicated Kubernetes auth mount in Vault
+
+  vaultConnectionRef: vault-conn
+
+  kubernetes:
+    role: vso-role       # Vault role under auth/vso-auth/role/vso-role
+    serviceAccount: vault-sa
+    audiences:
+      - vault            # ensures VSO requests a token Vault accepts
+
+  allowedNamespaces:
+    - "*"                # allow cross-namespace secret sync

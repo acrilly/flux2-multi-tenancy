@@ -1,8 +1,0 @@
-apiVersion: secrets.hashicorp.com/v1beta1
-kind: VaultConnection
-metadata:
-  name: vault-conn
-  namespace: vso
-spec:
-  address: https://vault.leclub.org.uk
-  skipTLSVerify: true

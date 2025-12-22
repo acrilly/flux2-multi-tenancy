@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - mariadb-instance.yaml
+  - vault-sa.yaml

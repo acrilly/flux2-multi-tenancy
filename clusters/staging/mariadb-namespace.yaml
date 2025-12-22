@@ -7,7 +7,3 @@ spec:
   interval: 10m
   path: ./infrastructure/operators/mariadb-operator-namespace
   prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 10m

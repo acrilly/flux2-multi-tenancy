@@ -1,11 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: mariadb-instance
+  name: mariadb-repo
   namespace: flux-system
 spec:
   dependsOn:
-    - name: mariadb-operator
+    - name: mariadb-namespace
   interval: 10m
-  path: ./infrastructure/operators/mariadb-instance
+  path: ./infrastructure/operators/mariadb-repo
   prune: true

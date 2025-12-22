@@ -4,12 +4,8 @@ metadata:
   name: mariadb-operator
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: mariadb-crds
   interval: 10m
   path: ./infrastructure/operators/mariadb-operator
   prune: true
-  dependsOn:
-    - name: mariadb-operator-crds
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 2m

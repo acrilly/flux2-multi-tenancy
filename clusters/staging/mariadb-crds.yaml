@@ -8,8 +8,4 @@ spec:
   path: ./infrastructure/operators/mariadb-operator-crds
   prune: true
   dependsOn:
-    - name: mariadb-operator-namespace
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 10m
+    - name: mariadb-repo

@@ -1,0 +1,10 @@
+
+# mariadb-database
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: wordpress-db
+  namespace: mariadb
+spec:
+  mariaDbRef:
+    name: mariadb-instance

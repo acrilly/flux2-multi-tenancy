@@ -1,0 +1,16 @@
+# mariadb-instance
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: mariadb-instance
+  namespace: mariadb
+spec:
+  replicas: 1
+
+  # Enterprise operator requires a single string
+  # https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/docker.md
+  image: mariadb:11.8.2
+
+  # Enterprise operator uses "storage" not volumeClaimTemplate
+  storage:
+    size: 5Gi

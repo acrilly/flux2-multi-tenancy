@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: ./infrastructure/operators/mariadb-operator-crds
+  path: ./infrastructure/operators/mariadb-crds
   prune: true
   dependsOn:
     - name: mariadb-repo

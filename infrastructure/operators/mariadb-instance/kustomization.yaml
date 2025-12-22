@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - vault-sa.yaml
+  - vaultconnection.yaml
   - vaultauth-static.yaml
   - vaultstaticsecret-mariadb-admin.yaml
   - mariadb.yaml

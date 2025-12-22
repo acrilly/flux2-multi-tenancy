@@ -7,7 +7,7 @@ metadata:
 spec:
   method: kubernetes
   mount: demo-auth-mount
-  vaultConnectionRef: vault-conn
+  vaultConnectionRef: vso/vault-conn
 
   kubernetes:
     role: vso-role

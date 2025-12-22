@@ -4,8 +4,10 @@ metadata:
   name: mariadb-repo
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: mariadb-namespace
   interval: 10m
   path: ./infrastructure/operators/mariadb-repo
   prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system

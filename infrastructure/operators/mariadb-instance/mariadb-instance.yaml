@@ -1,61 +1,71 @@
 ---
+# mariadb namespace
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: mariadb-operator
+  name: mariadb
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
+# mariadb-instance
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
 metadata:
-  name: mariadb-operator
-  namespace: flux-system
+  name: mariadb-instance
+  namespace: mariadb
 spec:
-  interval: 1h
-  url: https://mariadb-operator.github.io/mariadb-operator
+  replicas: 1
+
+  # Enterprise operator requires a single string
+  # https://github.com/mariadb-operator/mariadb-operator/blob/main/docs/docker.md
+  image: mariadb:11.8.2
+
+  # Enterprise operator uses "storage" not volumeClaimTemplate
+  storage:
+    size: 5Gi
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
+# VaultStaticSecret that pulls mariadb-admin/root credentials from Vault
+# Assumes:
+#   - Vault KV v2 mount: kvv2
+#   - Path: kvv2/mariadb/admin
+#   - Data key: mariadb-root-password
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultStaticSecret
 metadata:
-  name: mariadb-operator-crds
-  namespace: mariadb-operator
+  name: mariadb-admin
+  namespace: mariadb
 spec:
-  interval: 10m
-  releaseName: mariadb-operator-crds
-  chart:
-    spec:
-      chart: mariadb-operator-crds
-      version: "25.10.2" # CalVer Year.Month.Patch
-      sourceRef:
-        kind: HelmRepository
-        name: mariadb-operator
-        namespace: flux-system
-  install:
-    createNamespace: true
-  upgrade:
-    remediation:
-      retries: 3
-  values: {}
+  vaultAuthRef: vso/static-auth
+  mount: kvv2
+  path: mariadb/admin
+  type: kv-v2
+  refreshAfter: 1h
+  hmacSecretData: true
+  destination:
+    name: mariadb-admin
+    create: true
+    overwrite: true
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
+# mariadb-user
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: User
 metadata:
-  name: mariadb-operator
-  namespace: mariadb-operator
+  name: admin-user
+  namespace: mariadb
 spec:
-  interval: 10m
-  releaseName: mariadb-operator
-  dependsOn:
-    - name: mariadb-operator-crds
-      namespace: mariadb-operator
-  chart:
-    spec:
-      chart: mariadb-operator
-      version: "25.10.2" # CalVer Year.Month.Patch
-      sourceRef:
-        kind: HelmRepository
-        name: mariadb-operator
-        namespace: flux-system
-  upgrade:
-    remediation:
-      retries: 3
-  values: {}
+  mariaDbRef:
+    name: mariadb-instance
+
+  passwordSecretKeyRef:
+    name: mariadb-admin
+    key: password
+
+  host: "%"
+---
+# mariadb-database
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: Database
+metadata:
+  name: wordpress-db
+  namespace: mariadb
+spec:
+  mariaDbRef:
+    name: mariadb-instance

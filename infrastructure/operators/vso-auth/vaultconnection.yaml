@@ -6,3 +6,5 @@ metadata:
 spec:
   address: https://vault.leclub.org.uk
   skipTLSVerify: true
+  allowedNamespaces:
+    - "*"

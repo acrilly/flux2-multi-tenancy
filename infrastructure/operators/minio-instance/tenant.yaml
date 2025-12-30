@@ -5,15 +5,20 @@ metadata:
   namespace: minio-operator
 spec:
   image: quay.io/minio/minio:RELEASE.2024-01-01T00-00-00Z
+
   pools:
     - servers: 3
       volumesPerServer: 3
       size: 5Gi
       storageClassName: fast-storage
+
   mountPath: /export
   requestAutoCert: true
+
   credsSecret:
     name: minio-admin
-  console:
-    image: quay.io/minio/console:v1.6.0
-    replicas: 1
+
+  kms:
+    kes:
+      endpoint: https://minio-kes.minio-operator.svc.cluster.local:7373
+      defaultKey: minio-kes-key

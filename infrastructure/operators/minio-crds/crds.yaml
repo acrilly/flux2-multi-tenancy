@@ -10,7 +10,6 @@ spec:
     kind: HelmRepository
     name: minio-operator
   interval: 1h
-  values: {}
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization

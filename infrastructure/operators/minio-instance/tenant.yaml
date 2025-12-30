@@ -1,0 +1,19 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: s3-storage
+  namespace: minio-operator
+spec:
+  image: quay.io/minio/minio:RELEASE.2024-01-01T00-00-00Z
+  pools:
+    - servers: 3
+      volumesPerServer: 3
+      size: 5Gi
+      storageClassName: fast-storage
+  mountPath: /export
+  requestAutoCert: true
+  credsSecret:
+    name: minio-admin
+  console:
+    image: quay.io/minio/console:v1.6.0
+    replicas: 1

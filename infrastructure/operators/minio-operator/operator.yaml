@@ -1,0 +1,29 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: minio-operator
+  namespace: minio-operator
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: operator
+      version: "5.0.12"   # pin a version for reproducibility
+      sourceRef:
+        kind: HelmRepository
+        name: minio-operator
+        namespace: flux-system
+  install:
+    createNamespace: false
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    # Recommended defaults
+    operator:
+      replicaCount: 1
+    console:
+      enabled: true
+      replicaCount: 1

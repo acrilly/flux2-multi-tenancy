@@ -1,0 +1,15 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: minio-operator
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: mariadb-crds
+  interval: 10m
+  path: ./infrastructure/operators/minio-operator
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system

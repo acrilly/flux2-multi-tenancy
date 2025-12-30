@@ -5,7 +5,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: mariadb-crds
+    - name: minio-repo
+    - name: minio-namespace
   interval: 10m
   path: ./infrastructure/operators/minio-operator
   prune: true

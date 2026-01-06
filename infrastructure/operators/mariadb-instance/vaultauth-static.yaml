@@ -6,7 +6,7 @@ metadata:
   namespace: mariadb
 spec:
   method: kubernetes
-  mount: demo-auth-mount
+  mount: staging-auth-mount
   vaultConnectionRef: vault-conn
 
   kubernetes:

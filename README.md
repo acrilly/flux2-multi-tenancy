@@ -5,6 +5,37 @@
 [![license](https://img.shields.io/github/license/fluxcd/flux2-multi-tenancy.svg)](https://github.com/fluxcd/flux2-multi-tenancy/blob/main/LICENSE)
 
 This repository serves as a starting point for managing multi-tenant clusters with Git and Flux v2.
+The repository is configured to deploy a scalable instance of Wordpress to bare-metal.
+The following building blocks are used for the deployment:
+
+1) Cert-Manager and a cluster wide Certificate-Issuer linked to LetsEncrypt certificate authority.
+2) Vault Service Operator to get secrets from a Vault Server
+3) MariaDb Operator and a MariaDB instance
+4) MinIO Operator, MinIO DirectPV and S3 buckets to hold my media library
+5) A Git repo to hold plugins, themes and translations
+6) Wordpress - made stateless
+
+Dependencies
+1) a Vault Server containing secrets for MariaDB with Kubernetes Authentication configured.
+
+Repository Structure
+├── clusters
+│   └── staging
+        ├── core         # Cert-manager and ClusterIssuer
+        ├── directpv     # DirectPV
+        ├── mariadb      # MariaDb Instance - depends on Namespace -> Repo -> CRDs -> Operator
+        ├── minio        # S3 Buckets - depends on (DirectPV and) Namespace -> Repo -> CRDs -> Operator 
+        └── vso          # Vault Secrets Operator instance - depends on Namespace -> Repo -> CRDs -> Operator
+├── infrastructure
+    ├── core
+    ├── directpv
+    ├── minio
+    └── operators
+        ├── mariadb
+        ├── minio
+        └── vso
+
+This repo is a work in progress.
 
 ![](docs/img/flux2-multi-tenancy.png)
 

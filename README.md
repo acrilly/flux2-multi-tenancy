@@ -23,9 +23,9 @@ Repository Structure
 │   └── staging
         ├── core         # Cert-manager and ClusterIssuer
         ├── directpv     # DirectPV
-        ├── mariadb      # MariaDb Instance - depends on Namespace -> Repo -> CRDs -> Operator
-        ├── minio        # S3 Buckets - depends on (DirectPV and) Namespace -> Repo -> CRDs -> Operator 
-        └── vso          # Vault Secrets Operator instance - depends on Namespace -> Repo -> CRDs -> Operator
+        ├── mariadb      # MariaDb Instance - depends on VSO and Namespace -> Repo -> CRDs -> Operator -> Instance
+        ├── minio        # S3 Buckets - depends on VSO, DirectPV and Namespace -> Repo -> CRDs -> Operator -> Instance
+        └── vso          # Vault Secrets Operator instance - depends on Namespace -> Repo -> CRDs -> Operator -> Instance
 ├── infrastructure
     ├── core
     ├── directpv
